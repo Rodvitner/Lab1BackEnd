@@ -1,25 +1,25 @@
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by simonlundstrom on 16/11/16.
  */
 @Entity
-@Table(name="USER")
 public class User {
-    @Column(name="name")
     private String name;
 
-    @Column(name="email")
     @Id
     private String email;
 
-    @Column(name="password")
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
+
+    @OneToMany(mappedBy = "user")
+    private List<Commentary> comments;
 
     public String getName() {
         return name;
