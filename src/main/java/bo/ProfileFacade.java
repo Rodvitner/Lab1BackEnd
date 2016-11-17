@@ -9,14 +9,14 @@ import javax.persistence.EntityTransaction;
 /**
  * Created by simonlundstrom on 16/11/16.
  */
-public class UserFacade {
+public class ProfileFacade {
     EntityManager prylchef;
 
-    public UserFacade(EntityManager em) {
+    public ProfileFacade(EntityManager em) {
         prylchef = em;
     }
 
-    public UserView saveUser(UserView incoming) {
+    public UserView createUser(UserView incoming) {
         EntityTransaction transa = prylchef.getTransaction();
         transa.begin();
         User toBeSaved = new User();
@@ -27,5 +27,15 @@ public class UserFacade {
         transa.commit();
         prylchef.close();
         return new UserView(toBeSaved.getName(),toBeSaved.getEmail(),null);
+    }
+
+    public UserView getUserById(String email) {
+        EntityTransaction transa = prylchef.getTransaction();
+        transa.begin();
+        User userFromDB = prylchef.find(User.class,email);
+        transa.commit();
+        UserView toReturn= new UserView(userFromDB.getName(),userFromDB.getEmail(),null);
+        prylchef.close();
+        return toReturn;
     }
 }

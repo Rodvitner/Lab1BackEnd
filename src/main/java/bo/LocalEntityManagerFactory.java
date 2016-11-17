@@ -1,5 +1,7 @@
 package bo;
 
+import viewmodels.UserView;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -17,8 +19,10 @@ public class LocalEntityManagerFactory implements ServletContextListener {
     int pelle;
 
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        if (fabrik == null)
+        if (fabrik == null) {
             fabrik = Persistence.createEntityManagerFactory("LocalSQL");
+            new ProfileFacade(createEntityManager()).createUser(new UserView("Pelle", "pelle@pelle.pe", "potatis"));
+        }
     }
 
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
@@ -27,7 +31,11 @@ public class LocalEntityManagerFactory implements ServletContextListener {
     }
 
     public EntityManager createEntityManager() {
-        if (fabrik==null) throw new IllegalStateException();
-        return fabrik.createEntityManager();
+        if (fabrik == null) throw new IllegalStateException();
+        EntityManager newEntityManager = null;
+        synchronized(this) {
+            newEntityManager = fabrik.createEntityManager();
+        }
+        return newEntityManager;
     }
 }
