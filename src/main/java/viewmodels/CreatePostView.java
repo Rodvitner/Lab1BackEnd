@@ -1,16 +1,23 @@
 package viewmodels;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
 /**
  * Created by archer on 2016-11-20.
  */
 public class CreatePostView {
-
-    String postText;
+    String postText, userEmail;
     Date postDate;
-    int postId;
-    int userid;
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 
     public String getPostText() {
         return postText;
@@ -28,19 +35,6 @@ public class CreatePostView {
         this.postDate = postDate;
     }
 
-    public int getPostId() {
-        return postId;
-    }
 
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
 
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
 }

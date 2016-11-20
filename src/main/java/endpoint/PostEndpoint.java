@@ -1,9 +1,15 @@
 package endpoint;
 
+import bo.LocalEntityManagerFactory;
+import bo.ProfileFacade;
+import viewmodels.CreatePostResult;
 import viewmodels.CreatePostView;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  * Created by archer on 2016-11-20.
@@ -11,8 +17,12 @@ import javax.ws.rs.Path;
 @Path("post")
 public class PostEndpoint {
 
+    @Path("create")
     @POST
-    public CreatePostView createPost(){
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public CreatePostResult createPost(CreatePostView postToCreate){
+        return new ProfileFacade(new LocalEntityManagerFactory().createEntityManager()).createPost(postToCreate);
 
     }
 
