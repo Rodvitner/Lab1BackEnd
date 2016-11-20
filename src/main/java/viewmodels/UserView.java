@@ -4,6 +4,7 @@ package viewmodels;
  * Created by simonlundstrom on 16/11/16.
  */
 public class UserView {
+
     private String name, email, password;
 
     public String getName() {
