@@ -8,6 +8,8 @@ import javax.persistence.Persistence;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Created by simonlundstrom on 16/11/16.
@@ -20,7 +22,24 @@ public class LocalEntityManagerFactory implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         if (fabrik == null) {
-            fabrik = Persistence.createEntityManagerFactory("LocalSQL");
+
+           // get map for environment overrides of db settings
+            Map<String, String> configOverrides = new HashMap<>();
+            String  username = System.getenv("DBUSER");
+            String password = System.getenv("DBPASS");
+            String dburl = System.getenv("DBURL");
+
+            if(username!=null ){
+                configOverrides.put("javax.persistence.jdbc.user",username);
+            }if(password!=null ){
+                configOverrides.put("javax.persistence.jdbc.password",password);
+            }if(dburl!=null ){
+                configOverrides.put("javax.persistence.jdbc.url",dburl);
+            }
+            //create with overrides
+            fabrik = Persistence.createEntityManagerFactory("LocalSQL",configOverrides);
+
+            // insert test data
             new ProfileFacade(createEntityManager()).createUser(new UserView("Pelle", "pelle@pelle.pe", "potatis"));
         }
     }
@@ -33,7 +52,7 @@ public class LocalEntityManagerFactory implements ServletContextListener {
     public EntityManager createEntityManager() {
         if (fabrik == null) throw new IllegalStateException();
         EntityManager newEntityManager = null;
-        synchronized(this) {
+        synchronized (this) {
             newEntityManager = fabrik.createEntityManager();
         }
         return newEntityManager;
