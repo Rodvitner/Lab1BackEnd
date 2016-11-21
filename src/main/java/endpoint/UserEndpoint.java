@@ -2,7 +2,7 @@ package endpoint;
 
 import bo.LocalEntityManagerFactory;
 import bo.ProfileFacade;
-import viewmodels.UserView;
+import viewmodels.resultviews.UserView;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -30,6 +30,7 @@ public class UserEndpoint {
     @POST
     @Path("create")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public UserView createUser(UserView newUser) {
         return new ProfileFacade(new LocalEntityManagerFactory().createEntityManager()).createUser(newUser);
 

@@ -3,7 +3,11 @@ package bo;
 import exception.UserException;
 import model.Post;
 import model.User;
-import viewmodels.*;
+import viewmodels.requestViews.BefriendRequest;
+import viewmodels.requestViews.CreatePostView;
+import viewmodels.resultviews.BefriendUserResult;
+import viewmodels.resultviews.CreatePostResult;
+import viewmodels.resultviews.UserView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

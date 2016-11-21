@@ -2,8 +2,8 @@ package endpoint;
 
 import bo.LocalEntityManagerFactory;
 import bo.ProfileFacade;
-import viewmodels.CreatePostResult;
-import viewmodels.CreatePostView;
+import viewmodels.resultviews.CreatePostResult;
+import viewmodels.requestViews.CreatePostView;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;

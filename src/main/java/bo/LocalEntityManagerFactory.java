@@ -1,6 +1,6 @@
 package bo;
 
-import viewmodels.UserView;
+import viewmodels.resultviews.UserView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

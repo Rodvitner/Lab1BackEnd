@@ -1,7 +1,7 @@
 package endpoint;
 
-import viewmodels.LoginMessage;
-import viewmodels.LoginStatusReturnMessage;
+import viewmodels.requestViews.LoginMessage;
+import viewmodels.resultviews.LoginStatusReturnMessage;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

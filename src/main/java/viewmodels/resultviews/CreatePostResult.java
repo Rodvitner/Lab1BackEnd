@@ -1,4 +1,4 @@
-package viewmodels;
+package viewmodels.resultviews;
 
 /**
  * Created by archer on 2016-11-20.
