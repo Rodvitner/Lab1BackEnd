@@ -1,10 +1,9 @@
 package bo;
 
+import exception.UserException;
 import model.Post;
 import model.User;
-import viewmodels.CreatePostResult;
-import viewmodels.CreatePostView;
-import viewmodels.UserView;
+import viewmodels.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -33,13 +32,13 @@ public class ProfileFacade {
     }
 
     public UserView getUserById(String email) {
-        EntityTransaction transa = prylchef.getTransaction();
-        transa.begin();
-        User userFromDB = prylchef.find(User.class,email);
-        transa.commit();
-        UserView toReturn= new UserView(userFromDB.getName(),userFromDB.getEmail(),null);
+        User userFromDB= new UserLogic(prylchef).getUser(email);
+        if(userFromDB == null){
+            userFromDB = new User();
+        }
         prylchef.close();
-        return toReturn;
+        return new UserView(userFromDB.getName(),userFromDB.getEmail(),null);
+
     }
 
     public CreatePostResult createPost(CreatePostView postToCreate){
@@ -68,6 +67,22 @@ public class ProfileFacade {
 
        return res;
 
+    }
+
+    public BefriendUserResult addFriend(BefriendRequest req){
+        BefriendUserResult res = new BefriendUserResult();
+        try{
+            new UserLogic(prylchef).makeFriends(req.getUser1Email(), req.getUser2Email());
+            res.setReason("success");
+            res.setSuccess(true);
+        }catch(UserException e) {
+            res.setSuccess(false);
+            res.setReason(e.getMessage());
+        }finally {
+            prylchef.close();
+        }
+
+        return res;
     }
 
     private void abort() {

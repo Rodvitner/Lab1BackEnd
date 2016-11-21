@@ -21,6 +21,39 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Commentary> comments;
 
+    //have a user able to be friends with other users
+    @ManyToMany
+    @JoinTable(name ="user-user",
+                joinColumns =  @JoinColumn(name="user1"),
+                inverseJoinColumns = @JoinColumn(name ="user2"),
+                uniqueConstraints =  @UniqueConstraint(columnNames = {"user1","user2"}))
+    private List<User> friends;
+
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public List<Commentary> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Commentary> comments) {
+        this.comments = comments;
+    }
+
+    public List<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
+    }
+
     public String getName() {
         return name;
     }
