@@ -23,12 +23,10 @@ public class User {
 
     //have a user able to be friends with other users
     @ManyToMany
-    @JoinTable(name ="PALS",
-                joinColumns =  @JoinColumn(name="user1"),
-                inverseJoinColumns = @JoinColumn(name ="user2"))
-//                uniqueConstraints =  @UniqueConstraint(columnNames = {"user1","user2"}))
+    @JoinTable(joinColumns =  @JoinColumn(name="user1"),
+                inverseJoinColumns = @JoinColumn(name ="user2"),
+                uniqueConstraints =  @UniqueConstraint(columnNames = {"user1","user2"}))
     private List<User> friends;
-
 
     public List<Post> getPosts() {
         return posts;
