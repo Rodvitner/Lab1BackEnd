@@ -1,6 +1,6 @@
 package bo;
 
-import viewmodels.resultviews.UserView;
+import viewmodels.requestviews.CreateUserRequest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -40,7 +40,7 @@ public class LocalEntityManagerFactory implements ServletContextListener {
             fabrik = Persistence.createEntityManagerFactory("LocalSQL",configOverrides);
 
             // insert test data
-            new ProfileFacade(createEntityManager()).createUser(new UserView("Pelle", "pelle@pelle.pe", "potatis"));
+            new LoginRegisterFacade(createEntityManager()).createUser(new CreateUserRequest("Pelle", "pelle@pelle.pe", "potatis"));
         }
     }
 

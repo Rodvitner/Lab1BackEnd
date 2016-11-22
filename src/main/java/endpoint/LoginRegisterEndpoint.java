@@ -1,0 +1,50 @@
+package endpoint;
+
+import bo.LoginRegisterFacade;
+import viewmodels.requestviews.CreateUserRequest;
+import viewmodels.requestviews.LoginRequest;
+import viewmodels.resultviews.CreateUserResult;
+import viewmodels.resultviews.LoginResult;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+
+/**
+ * Created by simonlundstrom on 16/11/16.
+ */
+@Path("/user")
+public class LoginRegisterEndpoint {
+
+    @POST
+    @Path("new")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public CreateUserResult createUser(CreateUserRequest newUser) {
+        return new LoginRegisterFacade().createUser(newUser);
+
+    }
+
+    @GET
+    @Path("login")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public LoginResult loginUser(LoginRequest userToLogin) {
+        return new LoginRegisterFacade().loginUser(userToLogin);
+    }
+
+    /*
+    // Deprecated? Wrong place?
+    @GET
+    @Path("get/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CreateUserRequest displayUser(@PathParam("id") String email) {
+        Map<String, String> env = System.getenv();
+        for (String envName : env.keySet()) {
+            System.out.format("%s=%s%n",
+                    envName,
+                    env.get(envName));
+        }
+        return new LoginRegisterFacade(new LocalEntityManagerFactory().createEntityManager()).getUserById(email);
+    }
+    */
+}

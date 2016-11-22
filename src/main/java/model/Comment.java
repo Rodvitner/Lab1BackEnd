@@ -10,7 +10,7 @@ import java.util.Date;
  * Created by simonlundstrom on 16/11/16.
  */
 @Entity
-public class Commentary {
+public class Comment {
     private String text;
     private Date date;
     @ManyToOne
@@ -21,10 +21,10 @@ public class Commentary {
     @GeneratedValue
     private int id;
 
-    public Commentary() {
+    public Comment() {
     }
 
-    public Commentary(String text, Date date, User user, Post post) {
+    public Comment(String text, Date date, User user, Post post) {
         this.text = text;
         this.date = date;
         this.user = user;

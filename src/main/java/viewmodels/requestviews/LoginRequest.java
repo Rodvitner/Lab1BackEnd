@@ -1,9 +1,9 @@
-package viewmodels.requestViews;
+package viewmodels.requestviews;
 
 /**
  * Created by simonlundstrom on 19/11/16.
  */
-public class LoginMessage {
+public class LoginRequest {
     String email;
     String password;
 

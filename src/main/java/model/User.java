@@ -15,11 +15,13 @@ public class User {
 
     private String password;
 
+    private String uuid;
+
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
     @OneToMany(mappedBy = "user")
-    private List<Commentary> comments;
+    private List<Comment> comments;
 
     //have a user able to be friends with other users
     @ManyToMany
@@ -27,6 +29,14 @@ public class User {
                 inverseJoinColumns = @JoinColumn(name ="user2"),
                 uniqueConstraints =  @UniqueConstraint(columnNames = {"user1","user2"}))
     private List<User> friends;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public List<Post> getPosts() {
         return posts;
@@ -36,11 +46,11 @@ public class User {
         this.posts = posts;
     }
 
-    public List<Commentary> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<Commentary> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
@@ -77,5 +87,11 @@ public class User {
     }
 
     public User() {
+    }
+
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
 }

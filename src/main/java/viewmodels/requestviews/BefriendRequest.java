@@ -1,4 +1,4 @@
-package viewmodels.requestViews;
+package viewmodels.requestviews;
 
 /**
  * Created by archer on 2016-11-21.

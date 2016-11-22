@@ -3,14 +3,14 @@ package viewmodels.resultviews;
 /**
  * Created by simonlundstrom on 19/11/16.
  */
-public class LoginStatusReturnMessage {
+public class LoginResult {
     private boolean login;
-    private String reason;
+    private String reason,uuid;
 
-    public LoginStatusReturnMessage() {
+    public LoginResult() {
     }
 
-    public LoginStatusReturnMessage(boolean login, String reason) {
+    public LoginResult(boolean login, String reason) {
         this.login = login;
         this.reason = reason;
     }
@@ -29,5 +29,13 @@ public class LoginStatusReturnMessage {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

@@ -1,13 +1,11 @@
-package viewmodels.requestViews;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+package viewmodels.requestviews;
 
 import java.util.Date;
 
 /**
  * Created by archer on 2016-11-20.
  */
-public class CreatePostView {
+public class CreatePostRequest {
     String postText, userEmail;
     Date postDate;
 

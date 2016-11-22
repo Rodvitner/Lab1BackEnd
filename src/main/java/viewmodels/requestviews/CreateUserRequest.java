@@ -1,9 +1,9 @@
-package viewmodels.resultviews;
+package viewmodels.requestviews;
 
 /**
  * Created by simonlundstrom on 16/11/16.
  */
-public class UserView {
+public class CreateUserRequest {
 
     private String name, email, password;
 
@@ -31,10 +31,10 @@ public class UserView {
         this.password = password;
     }
 
-    public UserView() {
+    public CreateUserRequest() {
     }
 
-    public UserView(String name, String email, String password) {
+    public CreateUserRequest(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
