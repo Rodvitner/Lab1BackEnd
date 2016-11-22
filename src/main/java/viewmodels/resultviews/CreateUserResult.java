@@ -5,28 +5,28 @@ package viewmodels.resultviews;
  */
 public class CreateUserResult {
 
-    private boolean ASuccess;
-    private String status;
+    private boolean success;
+    private String reason;
 
-    public boolean isASuccess() {
-        return ASuccess;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setASuccess(boolean ASuccess) {
-        this.ASuccess = ASuccess;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
-    public String getStatus() {
-        return status;
+    public String getReason() {
+        return reason;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public CreateUserResult(boolean ASuccess, String status) {
-        this.ASuccess = ASuccess;
-        this.status = status;
+        this.success = ASuccess;
+        this.reason = status;
     }
 
     public CreateUserResult() {

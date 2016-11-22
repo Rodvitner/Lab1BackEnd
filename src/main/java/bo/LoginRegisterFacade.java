@@ -1,10 +1,7 @@
 package bo;
 
 import exception.UserException;
-import model.User;
-import viewmodels.requestviews.BefriendRequest;
 import viewmodels.requestviews.LoginRequest;
-import viewmodels.resultviews.BefriendUserResult;
 import viewmodels.requestviews.CreateUserRequest;
 import viewmodels.resultviews.CreateUserResult;
 import viewmodels.resultviews.LoginResult;
@@ -25,12 +22,12 @@ public class LoginRegisterFacade {
         CreateUserResult result = new CreateUserResult();
         try {
             new UserLogic(prylchef).registerUser(incoming.getName(),incoming.getEmail(),incoming.getPassword());
-            result.setASuccess(true);
-            result.setStatus("User created.");
+            result.setSuccess(true);
+            result.setReason("User created.");
         }
         catch(UserException ue) {
-            result.setASuccess(false);
-            result.setStatus(ue.getMessage());
+            result.setSuccess(false);
+            result.setReason(ue.getMessage());
         }
         finally {
             prylchef.close();

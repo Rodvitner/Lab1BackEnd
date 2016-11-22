@@ -5,9 +5,12 @@ import viewmodels.requestviews.CreateUserRequest;
 import viewmodels.requestviews.LoginRequest;
 import viewmodels.resultviews.CreateUserResult;
 import viewmodels.resultviews.LoginResult;
+import viewmodels.resultviews.UserResult;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by simonlundstrom on 16/11/16.
@@ -47,4 +50,19 @@ public class LoginRegisterEndpoint {
         return new LoginRegisterFacade(new LocalEntityManagerFactory().createEntityManager()).getUserById(email);
     }
     */
+
+    @GET
+    @Path("list-users")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UserResult> listUsers(){
+        List<UserResult> l = new ArrayList<UserResult>();
+
+
+        l.add(new UserResult("email@email.em","name"));
+        l.add(new UserResult("email@eail.em","n"));
+        l.add(new UserResult("email@eil.em","ae"));
+        l.add(new UserResult("el@email.em","ame"));
+        return l;
+    }
+
 }
