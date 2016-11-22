@@ -24,7 +24,7 @@ public class LoginRegisterEndpoint {
 
     }
 
-    @GET
+    @POST
     @Path("login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
