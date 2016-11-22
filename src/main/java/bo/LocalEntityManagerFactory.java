@@ -40,7 +40,7 @@ public class LocalEntityManagerFactory implements ServletContextListener {
             fabrik = Persistence.createEntityManagerFactory("LocalSQL",configOverrides);
 
             // insert test data
-            new LoginRegisterFacade(createEntityManager()).createUser(new CreateUserRequest("Pelle", "pelle@pelle.pe", "potatis"));
+            new LoginRegisterFacade().createUser(new CreateUserRequest("Pelle", "pelle@pelle.pe", "potatis"));
         }
     }
 
