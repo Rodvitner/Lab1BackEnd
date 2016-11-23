@@ -3,24 +3,8 @@ package viewmodels.resultviews;
 /**
  * Created by archer on 2016-11-20.
  */
-public class RegisterResult {
-
-    boolean success;
-    String message;
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+public class RegisterResult extends Result {
+    public RegisterResult(boolean success, String message) {
+        super(success, message);
     }
 }

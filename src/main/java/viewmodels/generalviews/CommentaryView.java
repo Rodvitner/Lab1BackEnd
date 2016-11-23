@@ -1,4 +1,4 @@
-package viewmodels.resultviews;
+package viewmodels.generalviews;
 
 /**
  * Created by simonlundstrom on 16/11/16.

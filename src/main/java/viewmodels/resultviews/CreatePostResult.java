@@ -3,10 +3,9 @@ package viewmodels.resultviews;
 /**
  * Created by archer on 2016-11-20.
  */
-public class CreatePostResult {
+public class CreatePostResult extends Result {
 
     private int id;
-    private String status;
 
     public int getId() {
         return id;
@@ -16,11 +15,8 @@ public class CreatePostResult {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public CreatePostResult(boolean success, String message, int id) {
+        super(success, message);
+        this.id = id;
     }
 }
