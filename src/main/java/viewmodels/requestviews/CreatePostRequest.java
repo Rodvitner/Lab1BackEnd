@@ -7,7 +7,6 @@ import java.util.Date;
  */
 public class CreatePostRequest {
     String postText, userEmail;
-    Date postDate;
 
     public String getUserEmail() {
         return userEmail;
@@ -24,15 +23,5 @@ public class CreatePostRequest {
     public void setPostText(String postText) {
         this.postText = postText;
     }
-
-    public Date getPostDate() {
-        return postDate;
-    }
-
-    public void setPostDate(Date postDate) {
-        this.postDate = postDate;
-    }
-
-
 
 }
