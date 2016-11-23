@@ -7,4 +7,7 @@ public class BefriendUserResult extends Result{
     public BefriendUserResult(boolean success, String message) {
         super(success, message);
     }
+
+    public BefriendUserResult() {
+    }
 }

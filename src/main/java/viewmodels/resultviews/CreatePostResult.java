@@ -19,4 +19,11 @@ public class CreatePostResult extends Result {
         super(success, message);
         this.id = id;
     }
+
+    public CreatePostResult(boolean success, String message) {
+        super(success, message);
+    }
+
+    public CreatePostResult() {
+    }
 }

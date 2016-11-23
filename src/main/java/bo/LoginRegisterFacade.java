@@ -19,15 +19,13 @@ public class LoginRegisterFacade {
     }
 
     public CreateUserResult createUser(CreateUserRequest incoming) {
-        CreateUserResult result = new CreateUserResult();
+        CreateUserResult result;
         try {
             new UserLogic(prylchef).registerUser(incoming.getName(),incoming.getEmail(),incoming.getPassword());
-            result.setSuccess(true);
-            result.setReason("User created.");
+            result = new CreateUserResult(true,"user created");
         }
         catch(UserException ue) {
-            result.setSuccess(false);
-            result.setReason(ue.getMessage());
+            result = new CreateUserResult(false,ue.getMessage());
         }
         finally {
             prylchef.close();
@@ -36,16 +34,13 @@ public class LoginRegisterFacade {
     }
 
     public LoginResult loginUser(LoginRequest loginRequest) {
-        LoginResult res = new LoginResult();
+        LoginResult res;
         try {
             String uuid = new UserLogic(prylchef).loginUser(loginRequest.getEmail(),loginRequest.getPassword());
-            res.setLogin(true);
-            res.setReason("User logged in.");
-            res.setUuid(uuid);
+            res = new LoginResult(true,"User logged in.",uuid);
         }
         catch(UserException ue) {
-            res.setLogin(false);
-            res.setReason(ue.getMessage());
+            res = new LoginResult(false,ue.getMessage(),null);
         }
         finally{
             prylchef.close();

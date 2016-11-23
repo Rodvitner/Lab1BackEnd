@@ -8,4 +8,7 @@ public class CreateUserResult extends Result{
     public CreateUserResult(boolean success, String message) {
         super(success, message);
     }
+
+    public CreateUserResult() {
+    }
 }

@@ -19,22 +19,20 @@ public class PostFacade {
     }
 
     public CreatePostResult createPost(CreatePostRequest postToCreate) {
-        CreatePostResult res = new CreatePostResult();
+        CreatePostResult res;
 
         User userThatPosted = new UserLogic(prylchef).findUserByEmail(postToCreate.getUserEmail());
         if (userThatPosted == null) {
-            res.setStatus("Non-existent user.");
+            res = new CreatePostResult(false,"Non-existent user.",-1);
             abort();
-            res.setId(-1);
             return res;
         }
 
         try {
             int id = new PostLogic(prylchef).post(postToCreate.getPostText(), userThatPosted, postToCreate.getPostDate());
-            res.setId(id);
-            res.setStatus("Success!");
+            res=new CreatePostResult(true,"Success!,id);");
         } catch (PostException pe) {
-            res.setStatus(pe.getMessage());
+            res=new CreatePostResult(false,pe.getMessage(),-1);
             res.setId(-1);
         } finally {
             prylchef.close();

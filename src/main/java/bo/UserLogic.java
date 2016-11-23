@@ -9,6 +9,8 @@ import viewmodels.resultviews.CreateUserResult;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  * Created by archer on 2016-11-21.
@@ -29,12 +31,14 @@ class UserLogic {
         return manager.find(User.class, email);
     }
 
+    /* Deprecated
     // Generisk metod f|r att generera ett random uuid p} 12 bokst{ver eller n}t.
     private String createRandomUuid() {
         StringBuilder sb = new StringBuilder();
         for (int i=0; i<12; i++) sb.append((char)((int)(Math.random()*92)+33));
         return sb.toString();
     }
+    */
 
     // Paketpublik wrapper-metod f|r att logga in en anv{ndare.
     String loginUser(String email, String password) throws UserException{
@@ -51,7 +55,8 @@ class UserLogic {
     // Privat metod f|r att logga in en anv{ndare.
     // Returnerar den nya uuidn.
     private String loginUser(User user){
-        String newUuid = createRandomUuid();
+        // String newUuid = createRandomUuid();
+        String newUuid = UUID.randomUUID().toString();
         EntityTransaction trans = null;
         try {
             trans = manager.getTransaction();

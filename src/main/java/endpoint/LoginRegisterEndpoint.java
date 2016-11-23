@@ -5,7 +5,7 @@ import viewmodels.requestviews.CreateUserRequest;
 import viewmodels.requestviews.LoginRequest;
 import viewmodels.resultviews.CreateUserResult;
 import viewmodels.resultviews.LoginResult;
-import viewmodels.resultviews.UserResult;
+import viewmodels.resultviews.GetUserResult;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -54,14 +54,14 @@ public class LoginRegisterEndpoint {
     @GET
     @Path("list-users")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<UserResult> listUsers(){
-        List<UserResult> l = new ArrayList<UserResult>();
+    public List<GetUserResult> listUsers(){
+        List<GetUserResult> l = new ArrayList<GetUserResult>();
 
 
-        l.add(new UserResult("email@email.em","name"));
-        l.add(new UserResult("email@eail.em","n"));
-        l.add(new UserResult("email@eil.em","ae"));
-        l.add(new UserResult("el@email.em","ame"));
+        l.add(new GetUserResult("email@email.em","name"));
+        l.add(new GetUserResult("email@eail.em","n"));
+        l.add(new GetUserResult("email@eil.em","ae"));
+        l.add(new GetUserResult("el@email.em","ame"));
         return l;
     }
 

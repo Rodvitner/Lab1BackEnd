@@ -18,4 +18,7 @@ public class LoginResult extends Result {
         super(success, message);
         this.uuid = uuid;
     }
+
+    public LoginResult() {
+    }
 }

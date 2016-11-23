@@ -17,14 +17,12 @@ public class FriendFacade {
     }
 
     public BefriendUserResult addFriend(BefriendRequest req){
-        BefriendUserResult res = new BefriendUserResult();
+        BefriendUserResult res=null;
         try{
             new UserLogic(prylchef).makeFriends(req.getUser1Email(), req.getUser2Email());
-            res.setReason("success");
-            res.setSuccess(true);
+            res = new BefriendUserResult(true,"success");
         }catch(UserException e) {
-            res.setSuccess(false);
-            res.setReason(e.getMessage());
+            res = new BefriendUserResult(false,e.getMessage());
         }finally {
             prylchef.close();
         }
