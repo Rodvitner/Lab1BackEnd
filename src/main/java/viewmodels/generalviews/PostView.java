@@ -4,14 +4,13 @@ package viewmodels.generalviews;
  * Created by simonlundstrom on 16/11/16.
  */
 public class PostView {
-    String text;
-    String date;
-    int userId, postId;
+    String text, date, userId;
+    int postId;
 
     public PostView() {
     }
 
-    public PostView(String text, String date, int userId, int postId) {
+    public PostView(String text, String date, String userId, int postId) {
         this.text = text;
         this.date = date;
         this.userId = userId;
@@ -34,11 +33,11 @@ public class PostView {
         this.date = date;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
