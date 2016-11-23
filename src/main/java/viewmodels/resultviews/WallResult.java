@@ -15,6 +15,9 @@ public class WallResult extends Result {
         this.postViews = postViews;
     }
 
+    public WallResult() {
+    }
+
     public List<PostView> getPostViews() {
         return postViews;
     }

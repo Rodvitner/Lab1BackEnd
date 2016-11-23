@@ -1,6 +1,8 @@
 package endpoint;
 
 import bo.PostFacade;
+import viewmodels.resultviews.WallResult;
+import viewmodels.requestviews.WallRequest;
 import viewmodels.resultviews.CreatePostResult;
 import viewmodels.requestviews.CreatePostRequest;
 
@@ -20,4 +22,13 @@ public class PostEndpoint {
     public CreatePostResult createPost(CreatePostRequest postToCreate){
         return new PostFacade().createPost(postToCreate);
     }
+
+    @POST
+    @Path("getwall")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public WallResult getWall(WallRequest wallRequest) {
+        return new PostFacade().getWall(wallRequest);
+    }
+
 }

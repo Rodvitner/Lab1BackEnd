@@ -50,19 +50,4 @@ public class LoginRegisterEndpoint {
         return new LoginRegisterFacade(new LocalEntityManagerFactory().createEntityManager()).getUserById(email);
     }
     */
-
-    @GET
-    @Path("list-users")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<GetUserResult> listUsers(){
-        List<GetUserResult> l = new ArrayList<GetUserResult>();
-
-
-        l.add(new GetUserResult("email@email.em","name"));
-        l.add(new GetUserResult("email@eail.em","n"));
-        l.add(new GetUserResult("email@eil.em","ae"));
-        l.add(new GetUserResult("el@email.em","ame"));
-        return l;
-    }
-
 }

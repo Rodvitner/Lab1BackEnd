@@ -4,11 +4,15 @@ import exception.UserException;
 import model.User;
 import viewmodels.requestviews.CreateUserRequest;
 import viewmodels.resultviews.CreateUserResult;
+import viewmodels.resultviews.GetUserResult;
 
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -27,23 +31,15 @@ class UserLogic {
     }
 
     // Paketgenerisk metod f|r att hitta en anv{ndare i databasen (efter epostadress).
-    User findUserByEmail(String email) {
+    User findUserByEmail(String email) throws UserException{
+        if (email==null) throw new NullPointerException("User email is null.");
         return manager.find(User.class, email);
     }
 
-    /* Deprecated
-    // Generisk metod f|r att generera ett random uuid p} 12 bokst{ver eller n}t.
-    private String createRandomUuid() {
-        StringBuilder sb = new StringBuilder();
-        for (int i=0; i<12; i++) sb.append((char)((int)(Math.random()*92)+33));
-        return sb.toString();
-    }
-    */
-
     // Paketpublik wrapper-metod f|r att logga in en anv{ndare.
-    String loginUser(String email, String password) throws UserException{
+    String loginUser(String email, String password) throws UserException {
         User userToLogin = findUserByEmail(email);
-        if (userToLogin==null) {
+        if (userToLogin == null) {
             throw new UserException("No such user.");
         }
         if (!userToLogin.getPassword().equals(password)) {
@@ -54,7 +50,7 @@ class UserLogic {
 
     // Privat metod f|r att logga in en anv{ndare.
     // Returnerar den nya uuidn.
-    private String loginUser(User user){
+    private String loginUser(User user) {
         // String newUuid = createRandomUuid();
         String newUuid = UUID.randomUUID().toString();
         EntityTransaction trans = null;
@@ -64,9 +60,8 @@ class UserLogic {
             user.setUuid(newUuid);
             manager.persist(user);
             trans.commit();
-        }
-        catch(PersistenceException pex) {
-            if (trans!=null) trans.rollback();
+        } catch (PersistenceException pex) {
+            if (trans != null) trans.rollback();
             pex.printStackTrace();
             throw pex;
         }
@@ -78,7 +73,7 @@ class UserLogic {
 
         User user1 = findUserByEmail(user1Email);
 
-        if (user1==null) {
+        if (user1 == null) {
             throw new UserException("First user not found.");
         }
 
@@ -114,7 +109,7 @@ class UserLogic {
 
             trans.commit();
         } catch (PersistenceException ex) {
-            if (trans!=null) trans.rollback();
+            if (trans != null) trans.rollback();
             ex.printStackTrace();
             throw ex;
         }
@@ -129,7 +124,7 @@ class UserLogic {
         if (user != null) {
             throw new UserException("Email already in use.");
         }
-        createUser(new User(name,email,password));
+        createUser(new User(name, email, password));
     }
 
     // Den privata metoden f|r att registrera en ny anv{ndare. Lagrar i DB.
@@ -141,9 +136,17 @@ class UserLogic {
             manager.persist(newUser);
             transaction.commit();
         } catch (PersistenceException ex) {
-            if (transaction!=null) transaction.rollback();
+            if (transaction != null) transaction.rollback();
             ex.printStackTrace();
             throw ex;
         }
+    }
+
+    public List<User> listUsersbyName(String name, int startAt, int amountOf) {
+        Query q = manager.createQuery("SELECT u FROM User u WHERE u.name like :name")
+                .setFirstResult(startAt)
+                .setMaxResults(amountOf);
+        q.setParameter("name",name);
+        return (List<User>)q.getResultList();
     }
 }
