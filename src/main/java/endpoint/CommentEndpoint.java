@@ -28,7 +28,7 @@ public class CommentEndpoint {
     @GET
     @Path("get")
     @Produces(MediaType.APPLICATION_JSON)
-    public CommentListResult getComments(@QueryParam("id") int id) {
-        return new CommentFacade().getCommentsByPostId(id);
+    public CommentListResult getComments(@QueryParam("PostId") int postId) {
+        return new CommentFacade().getCommentsByPostId(postId);
     }
 }

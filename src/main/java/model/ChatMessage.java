@@ -27,8 +27,7 @@ public class ChatMessage {
     public ChatMessage() {
     }
 
-    public ChatMessage(int id, String text, Date date, Chatroom room, User poster) {
-        this.id = id;
+    public ChatMessage(String text, Date date, Chatroom room, User poster) {
         this.text = text;
         this.date = date;
         this.room = room;
