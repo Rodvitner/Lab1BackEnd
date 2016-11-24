@@ -1,14 +1,16 @@
 package endpoint;
 
 import bo.CommentFacade;
+import com.sun.xml.internal.rngom.ast.builder.CommentList;
+import model.Comment;
+import viewmodels.generalviews.CommentView;
 import viewmodels.requestviews.CreateCommentRequest;
+import viewmodels.resultviews.CommentListResult;
 import viewmodels.resultviews.Result;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 /**
  * Created by simonlundstrom on 23/11/16.
@@ -21,5 +23,12 @@ public class CommentEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public Result postComment(CreateCommentRequest ccr) {
         return new CommentFacade().postComment(ccr);
+    }
+
+    @GET
+    @Path("get")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CommentListResult getComments(@QueryParam("id") int id) {
+        return new CommentFacade().getCommentsByPostId(id);
     }
 }

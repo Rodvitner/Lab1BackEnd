@@ -6,10 +6,9 @@ import model.Comment;
 import model.Post;
 import model.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceException;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by simonlundstrom on 24/11/16.
@@ -40,5 +39,12 @@ public class CommentLogic {
             if (trans!=null) trans.rollback();
             pe.printStackTrace();
         }
+    }
+
+    public List<Comment> getCommentsByPostId(int id) {
+        Query q = manager.createQuery("SELECT c from Comment c WHERE c.post.id=:id");
+        q.setParameter("id",id);
+        List<Comment> res = (List<Comment>)q.getResultList();
+        return res;
     }
 }

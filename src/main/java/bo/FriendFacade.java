@@ -39,7 +39,10 @@ public class FriendFacade {
         User asker;
         try {
             asker = new UserLogic(prylchef).findUserByEmail(id);
-            res = new FriendListResult(true,"OK", new UserUserViewMapper()
+            if (asker==null)
+                res = new FriendListResult(false,"No such user.",null);
+            else
+                res = new FriendListResult(true,"OK", new UserUserViewMapper()
                     .translateListOfA(asker.getFriends()));
         }catch(UserException ue){
             res = new FriendListResult(false,ue.getMessage(),null);

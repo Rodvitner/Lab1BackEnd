@@ -31,11 +31,6 @@ public class PostFacade {
 
         try {
             userThatPosted = new UserLogic(prylchef).findUserByEmail(postToCreate.getUserEmail());
-            if (userThatPosted == null) {
-                res = new CreatePostResult(false, "Non-existent user.", -1);
-                abort();
-                return res;
-            }
             int id = new PostLogic(prylchef).post(postToCreate.getPostText(), userThatPosted, new Date());
             res = new CreatePostResult(true, "Success!", id);
         } catch (UserException ue) {
@@ -57,10 +52,6 @@ public class PostFacade {
         List<Post> list = null;
         try {
             requestingUser = new UserLogic(prylchef).findUserByEmail(wallRequest.getUserEmail());
-            if (requestingUser == null) {
-                res = new WallResult(false, "User not found.", null);
-                return res;
-            }
             list = new PostLogic(prylchef).listPosts(requestingUser, wallRequest.getStartAt(), wallRequest.getAmountOfPosts());
             System.out.println("By some reason or another, the JPQL worked... I think.");
             res = new WallResult(true, "Success!", new PostPostViewMapper().translateListOfA(list));
@@ -69,6 +60,8 @@ public class PostFacade {
             ue.printStackTrace();
         } catch (PostException pe) {
             res = new WallResult(false, pe.getMessage(), null);
+        }finally{
+            prylchef.close();
         }
         return res;
     }

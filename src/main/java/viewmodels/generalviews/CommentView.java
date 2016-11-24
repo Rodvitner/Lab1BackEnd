@@ -3,14 +3,14 @@ package viewmodels.generalviews;
 /**
  * Created by simonlundstrom on 16/11/16.
  */
-public class CommentaryView {
-    private String text, tid;
-    private int id,postId,userId;
+public class CommentView {
+    private String text, tid, userId;
+    private int id,postId;
 
-    public CommentaryView() {
+    public CommentView() {
     }
 
-    public CommentaryView(String text, String tid, int id, int postId, int userId) {
+    public CommentView(String text, String tid, int id, int postId, String userId) {
         this.text = text;
         this.tid = tid;
         this.id = id;
@@ -50,11 +50,11 @@ public class CommentaryView {
         this.postId = postId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 }

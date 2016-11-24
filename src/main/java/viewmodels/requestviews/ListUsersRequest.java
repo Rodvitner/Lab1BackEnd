@@ -3,11 +3,11 @@ package viewmodels.requestviews;
 /**
  * Created by simonlundstrom on 23/11/16.
  */
-public class ListRequest {
+public class ListUsersRequest {
     String query;
     int startAt,amountOf;
 
-    public ListRequest(String query, int startAt, int amountOf) {
+    public ListUsersRequest(String query, int startAt, int amountOf) {
         this.query = query;
         this.startAt = startAt;
         this.amountOf = amountOf;
