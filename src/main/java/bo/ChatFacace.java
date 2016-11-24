@@ -24,6 +24,8 @@ public class ChatFacace {
             res = new CreateChatRoomResult(true,"OK",new ChatLogic(prylchef).createChatroom(creator,invitee));
         }catch(UserException ue) {
             res = new CreateChatRoomResult(false,ue.getMessage(),-1);
+        }finally{
+            prylchef.close();
         }
         return res;
     }

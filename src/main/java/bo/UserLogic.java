@@ -33,7 +33,7 @@ class UserLogic {
     // Paketgenerisk metod f|r att hitta en anv{ndare i databasen (efter epostadress).
     User findUserByEmail(String email) throws UserException{
         if (email==null) throw new NullPointerException("User email is null.");
-        System.out.println("User logc trying to find user: "+email);
+        System.out.println("User logic trying to find user: "+email);
         User res = manager.find(User.class, email);
         System.out.println("User logic found "+res);
         return res;
@@ -104,12 +104,10 @@ class UserLogic {
         try {
             trans = manager.getTransaction();
             trans.begin();
-
             user1.getFriends().add(user2);
             user2.getFriends().add(user1);
             manager.persist(user1);
             manager.persist(user2);
-
             trans.commit();
         } catch (PersistenceException ex) {
             if (trans != null) trans.rollback();
@@ -166,6 +164,27 @@ class UserLogic {
         }catch (PersistenceException pe) {
             if (trans!=null) trans.rollback();
             pe.printStackTrace();
+        }
+    }
+
+    public void removeRelation(String angryGuy, String theEnemy) throws UserException{
+        User angry = findUserByEmail(angryGuy);
+        User enemy = findUserByEmail(theEnemy);
+        if (angry==null) throw new UserException("User "+angryGuy+" not found.");
+        if (enemy==null) throw new UserException("User "+theEnemy+" not found.");
+        EntityTransaction trans = null;
+        try {
+            trans = manager.getTransaction();
+            trans.begin();
+            angry.getFriends().remove(enemy);
+            enemy.getFriends().remove(angry);
+            manager.persist(angry);
+            manager.persist(enemy);
+            trans.commit();
+        }catch(PersistenceException pe) {
+            if (trans!=null) trans.rollback();
+            pe.printStackTrace();
+            throw pe;
         }
     }
 }

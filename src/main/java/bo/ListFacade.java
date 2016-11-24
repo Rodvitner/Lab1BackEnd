@@ -17,10 +17,13 @@ public class ListFacade {
     }
 
     public List<GetUserResult> listUsers(ListUsersRequest listUsersRequest) {
-        return new UserUserViewMapper().translateListOfA(new UserLogic(prylchef)
-                .listUsersbyName(listUsersRequest.getQuery(),
-                                 listUsersRequest.getStartAt(),
-                                 listUsersRequest.getAmountOf())
+        List<GetUserResult> res = new UserUserViewMapper()
+                .translateListOfA(new UserLogic(prylchef)
+                                 .listUsersbyName(listUsersRequest.getQuery(),
+                                                  listUsersRequest.getStartAt(),
+                                                  listUsersRequest.getAmountOf())
                                 );
+        prylchef.close();
+        return res;
     }
 }

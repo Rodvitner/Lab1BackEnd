@@ -5,7 +5,9 @@ import viewmodels.requestviews.BefriendRequest;
 import viewmodels.resultviews.BefriendUserResult;
 import viewmodels.resultviews.FriendListResult;
 import viewmodels.resultviews.GetUserResult;
+import viewmodels.resultviews.Result;
 
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -30,5 +32,13 @@ public class FriEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     public FriendListResult listFriends(@QueryParam("id") String id) {
         return new FriendFacade().listFriends(id);
+    }
+
+    @PUT
+    @Path("removeFriend")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Result removeFriend(BefriendRequest enemies) {
+        return new FriendFacade().removeFriend(enemies);
     }
 }

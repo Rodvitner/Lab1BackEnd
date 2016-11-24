@@ -4,10 +4,7 @@ import bo.ListFacade;
 import viewmodels.requestviews.ListUsersRequest;
 import viewmodels.resultviews.GetUserResult;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -20,7 +17,7 @@ public class ListUsersEndPoint {
     @Path("listusers")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<GetUserResult> listUsers(ListUsersRequest listUsersRequest) {
-        return new ListFacade().listUsers(listUsersRequest);
+    public List<GetUserResult> listUsers(@QueryParam("searchString") String searchString, @QueryParam("from") int from, @QueryParam("amount") int amount) {
+        return new ListFacade().listUsers(new ListUsersRequest(searchString,from,amount));
     }
 }

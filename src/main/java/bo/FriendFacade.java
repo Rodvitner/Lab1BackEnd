@@ -7,6 +7,7 @@ import viewmodels.requestviews.BefriendRequest;
 import viewmodels.resultviews.BefriendUserResult;
 import viewmodels.resultviews.FriendListResult;
 import viewmodels.resultviews.GetUserResult;
+import viewmodels.resultviews.Result;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -47,6 +48,19 @@ public class FriendFacade {
                     .translateListOfA(asker.getFriends()));
         }catch(UserException ue){
             res = new FriendListResult(false,ue.getMessage(),null);
+        }finally{
+            prylchef.close();
+        }
+        return res;
+    }
+
+    public Result removeFriend(BefriendRequest enemies) {
+        Result res = null;
+        try {
+            new UserLogic(prylchef).removeRelation(enemies.getUser1Email(),enemies.getUser2Email());
+            res = new Result(true,enemies.getUser1Email()+" and "+enemies.getUser2Email()+" are no longer friends.");
+        }catch(UserException ue) {
+            res = new Result(false,ue.getMessage());
         }finally{
             prylchef.close();
         }

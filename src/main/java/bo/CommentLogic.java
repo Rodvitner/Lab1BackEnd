@@ -32,6 +32,7 @@ public class CommentLogic {
         EntityTransaction trans= null;
         try {
             trans = manager.getTransaction();
+            trans.begin();
             manager.persist(comment);
             trans.commit();
         }
@@ -41,6 +42,7 @@ public class CommentLogic {
         }
     }
 
+    // Public metod f|r att lista alla kommentare p} en post.
     public List<Comment> getCommentsByPostId(int id) {
         Query q = manager.createQuery("SELECT c from Comment c WHERE c.post.id=:id");
         q.setParameter("id",id);
