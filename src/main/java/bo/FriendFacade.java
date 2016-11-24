@@ -6,11 +6,9 @@ import model.User;
 import viewmodels.requestviews.BefriendRequest;
 import viewmodels.resultviews.BefriendUserResult;
 import viewmodels.resultviews.FriendListResult;
-import viewmodels.resultviews.GetUserResult;
 import viewmodels.resultviews.Result;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 /**
  * Created by simonlundstrom on 22/11/16.

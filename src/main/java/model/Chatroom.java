@@ -18,8 +18,11 @@ public class Chatroom {
     @ManyToMany(mappedBy = "rooms")
     private List<User> members;
 
-    public Chatroom(List<User> members) {
+    private String name;
+
+    public Chatroom(List<User> members, String roomName) {
         this.members = members;
+        this.name = roomName;
     }
 
     public Chatroom() {
@@ -43,6 +46,14 @@ public class Chatroom {
 
     public int getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setId(int id) {

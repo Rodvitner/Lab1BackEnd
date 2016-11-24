@@ -96,6 +96,22 @@ public class User {
         this.password = password;
     }
 
+    public List<ChatMessage> getChatMessages() {
+        return chatMessages;
+    }
+
+    public void setChatMessages(List<ChatMessage> chatMessages) {
+        this.chatMessages = chatMessages;
+    }
+
+    public List<Chatroom> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Chatroom> rooms) {
+        this.rooms = rooms;
+    }
+
     public User() {
     }
 

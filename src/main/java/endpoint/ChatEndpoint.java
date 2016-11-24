@@ -1,13 +1,11 @@
 package endpoint;
 
-import bo.ChatFacace;
+import bo.ChatFacade;
 import viewmodels.requestviews.CreateChatroomRequest;
 import viewmodels.resultviews.CreateChatRoomResult;
+import viewmodels.resultviews.ListChatRoomsResult;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -20,6 +18,13 @@ public class ChatEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public CreateChatRoomResult createChatRoom(CreateChatroomRequest request){
-        return new ChatFacace().createChatRoom(request);
+        return new ChatFacade().createChatRoom(request);
+    }
+
+    @GET
+    @Path("listmyrooms")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ListChatRoomsResult listChatroomsByUser(@QueryParam("user") String userId) {
+        return new ChatFacade().listChatroomMetaDataByUser(userId);
     }
 }

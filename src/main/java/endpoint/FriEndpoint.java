@@ -4,13 +4,10 @@ import bo.FriendFacade;
 import viewmodels.requestviews.BefriendRequest;
 import viewmodels.resultviews.BefriendUserResult;
 import viewmodels.resultviews.FriendListResult;
-import viewmodels.resultviews.GetUserResult;
 import viewmodels.resultviews.Result;
 
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 /**
  * Created by simonlundstrom on 22/11/16.

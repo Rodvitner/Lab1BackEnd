@@ -2,18 +2,13 @@ package bo;
 
 import exception.UserException;
 import model.User;
-import viewmodels.requestviews.CreateUserRequest;
-import viewmodels.resultviews.CreateUserResult;
-import viewmodels.resultviews.GetUserResult;
 
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 /**

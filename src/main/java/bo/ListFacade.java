@@ -2,7 +2,7 @@ package bo;
 
 import bo.translators.UserUserViewMapper;
 import viewmodels.requestviews.ListUsersRequest;
-import viewmodels.resultviews.GetUserResult;
+import viewmodels.generalviews.UserView;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -16,8 +16,8 @@ public class ListFacade {
     public ListFacade() { prylchef = new LocalEntityManagerFactory().createEntityManager();
     }
 
-    public List<GetUserResult> listUsers(ListUsersRequest listUsersRequest) {
-        List<GetUserResult> res = new UserUserViewMapper()
+    public List<UserView> listUsers(ListUsersRequest listUsersRequest) {
+        List<UserView> res = new UserUserViewMapper()
                 .translateListOfA(new UserLogic(prylchef)
                                  .listUsersbyName(listUsersRequest.getQuery(),
                                                   listUsersRequest.getStartAt(),

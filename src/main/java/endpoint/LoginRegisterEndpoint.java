@@ -5,13 +5,10 @@ import viewmodels.requestviews.CreateUserRequest;
 import viewmodels.requestviews.LoginRequest;
 import viewmodels.resultviews.CreateUserResult;
 import viewmodels.resultviews.LoginResult;
-import viewmodels.resultviews.GetUserResult;
 import viewmodels.resultviews.Result;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by simonlundstrom on 16/11/16.

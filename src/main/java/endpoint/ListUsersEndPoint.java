@@ -2,7 +2,7 @@ package endpoint;
 
 import bo.ListFacade;
 import viewmodels.requestviews.ListUsersRequest;
-import viewmodels.resultviews.GetUserResult;
+import viewmodels.generalviews.UserView;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -17,7 +17,7 @@ public class ListUsersEndPoint {
     @Path("listusers")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<GetUserResult> listUsers(@QueryParam("searchString") String searchString, @QueryParam("from") int from, @QueryParam("amount") int amount) {
+    public List<UserView> listUsers(@QueryParam("searchString") String searchString, @QueryParam("from") int from, @QueryParam("amount") int amount) {
         return new ListFacade().listUsers(new ListUsersRequest(searchString,from,amount));
     }
 }
