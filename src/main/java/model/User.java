@@ -20,6 +20,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
+    @OneToMany(mappedBy = "poster")
+    private List<ChatMessage> chatMessages;
+
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;
 
@@ -29,6 +32,13 @@ public class User {
                 inverseJoinColumns = @JoinColumn(name ="user2"),
                 uniqueConstraints =  @UniqueConstraint(columnNames = {"user1","user2"}))
     private List<User> friends;
+
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name="member"),
+            inverseJoinColumns = @JoinColumn(name="chatroom"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"chatroom","member"}))
+    private List<Chatroom> rooms;
+
 
     public String getUuid() {
         return uuid;

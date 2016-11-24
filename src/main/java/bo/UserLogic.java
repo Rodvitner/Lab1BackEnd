@@ -33,7 +33,10 @@ class UserLogic {
     // Paketgenerisk metod f|r att hitta en anv{ndare i databasen (efter epostadress).
     User findUserByEmail(String email) throws UserException{
         if (email==null) throw new NullPointerException("User email is null.");
-        return manager.find(User.class, email);
+        System.out.println("User logc trying to find user: "+email);
+        User res = manager.find(User.class, email);
+        System.out.println("User logic found "+res);
+        return res;
     }
 
     // Paketpublik wrapper-metod f|r att logga in en anv{ndare.
@@ -148,5 +151,21 @@ class UserLogic {
                 .setMaxResults(amountOf);
         q.setParameter("name",name);
         return (List<User>)q.getResultList();
+    }
+
+    public void logoutUser(String userToLogout) throws UserException{
+        EntityTransaction trans = null;
+        try {
+            trans = manager.getTransaction();
+            User u = findUserByEmail(userToLogout);
+            if (u==null) throw new UserException("User not found.");
+            trans.begin();
+            u.setUuid(null);
+            manager.persist(u);
+            trans.commit();
+        }catch (PersistenceException pe) {
+            if (trans!=null) trans.rollback();
+            pe.printStackTrace();
+        }
     }
 }

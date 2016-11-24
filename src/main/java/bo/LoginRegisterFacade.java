@@ -5,6 +5,7 @@ import viewmodels.requestviews.LoginRequest;
 import viewmodels.requestviews.CreateUserRequest;
 import viewmodels.resultviews.CreateUserResult;
 import viewmodels.resultviews.LoginResult;
+import viewmodels.resultviews.Result;
 
 import javax.persistence.EntityManager;
 
@@ -62,8 +63,20 @@ public class LoginRegisterFacade {
     }
      */
 
+    public Result logoutUser(String userToLogout) {
+        Result res = null;
+        try {
+            new UserLogic(prylchef).logoutUser(userToLogout);
+            res = new Result(true,"User logged out.");
+        }catch(UserException ue) {
+            res = new Result(false,"Could not log out user.");
+        }finally{
+            prylchef.close();
+        }
+        return res;
+    }
+
     private void abort() {
         // TODO: 2016-11-20 abort transaction in some smart way
     }
-
 }

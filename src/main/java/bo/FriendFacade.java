@@ -39,8 +39,9 @@ public class FriendFacade {
         User asker;
         try {
             asker = new UserLogic(prylchef).findUserByEmail(id);
+            System.out.println("FriendFacade tried to find user on id="+id);
             if (asker==null)
-                res = new FriendListResult(false,"No such user.",null);
+                res = new FriendListResult(false,"FriendFacade: No such user.",null);
             else
                 res = new FriendListResult(true,"OK", new UserUserViewMapper()
                     .translateListOfA(asker.getFriends()));

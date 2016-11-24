@@ -6,6 +6,7 @@ import viewmodels.requestviews.LoginRequest;
 import viewmodels.resultviews.CreateUserResult;
 import viewmodels.resultviews.LoginResult;
 import viewmodels.resultviews.GetUserResult;
+import viewmodels.resultviews.Result;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -33,6 +34,13 @@ public class LoginRegisterEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public LoginResult loginUser(LoginRequest userToLogin) {
         return new LoginRegisterFacade().loginUser(userToLogin);
+    }
+
+    @GET
+    @Path("logout")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Result logoutUser(@QueryParam("id") String userToLogout) {
+        return new LoginRegisterFacade().logoutUser(userToLogout);
     }
 
     /*

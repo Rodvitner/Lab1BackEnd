@@ -21,7 +21,7 @@ public class Post {
     private int id;
 
     @OneToMany(mappedBy = "post")
-    private List<Comment> commentaries;
+    private List<Comment> comments;
 
     public Post() {
     }
