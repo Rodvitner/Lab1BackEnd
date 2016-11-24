@@ -21,7 +21,7 @@ public class ListEndPoint {
     @Path("listusers")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<GetUserResult> listAllUsers(ListRequest listRequest) {
+    public List<GetUserResult> listUsers(ListRequest listRequest) {
         return new ListFacade().listUsers(listRequest);
     }
 }

@@ -25,6 +25,11 @@ class PostLogic {
         this.manager=em;
     }
 
+    // Paketpublik metod f|r att h{mta en post baserat p} id.
+    Post getPostById(int postId) {
+        return manager.find(Post.class,postId);
+    }
+
     //Paketpublik metod for att posta.
     int post(String text, User user, Date date) throws PostException {
 

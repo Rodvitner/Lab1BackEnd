@@ -23,6 +23,8 @@ public class PostEndpoint {
         return new PostFacade().createPost(postToCreate);
     }
 
+    // TODO: 23/11/16 ändra till en GET
+
     @POST
     @Path("getwall")
     @Consumes(MediaType.APPLICATION_JSON)
