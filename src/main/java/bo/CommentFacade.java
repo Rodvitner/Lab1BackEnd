@@ -32,6 +32,7 @@ public class CommentFacade {
             poster = new UserLogic(prylchef).findUserByEmail(ccr.getUserEmail());
             post = new PostLogic(prylchef).getPostById(ccr.getPostId());
             new CommentLogic(prylchef).postComment(ccr.getText(), poster, post);
+            res = new Result(true,"success");
         } catch (UserException ue) {
             res = new Result(false, ue.getMessage());
         } catch (PostException pe) {
@@ -39,13 +40,15 @@ public class CommentFacade {
         } finally {
             prylchef.close();
         }
+        System.out.println("RESULT OF CREATE COMNMENT IS " + res);
         return res;
     }
 
     public CommentListResult getCommentsByPostId(int id) {
         CommentListResult res = null;
         List<Comment> lista = new CommentLogic(prylchef).getCommentsByPostId(id);
-        if (lista==null)
+        System.out.println("LISTA AV KLOMMENTARER ÄR " + lista);
+        if (lista==null || lista.size() <= 0 )
             res = new CommentListResult(false,"No Comments.",null);
         else
             res = new CommentListResult(true,"OK",new CommentCommentViewMapper().translateListOfA(lista));

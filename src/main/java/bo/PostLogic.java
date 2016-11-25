@@ -69,7 +69,7 @@ class PostLogic {
 
         // H{r ska det g} att h{mta en lista.
         List<Post> ret = new LinkedList<Post>();
-        Query q = manager.createQuery("SELECT p FROM Post p WHERE p.user=:email OR p.user=:me ORDER BY p.date desc ")
+        Query q = manager.createQuery("SELECT p FROM Post p WHERE p.user in :email OR p.user=:me ORDER BY p.date desc ")
                 .setFirstResult(startAt)
                 .setMaxResults(amountOfPosts);
         q.setParameter("email",user.getFriends());

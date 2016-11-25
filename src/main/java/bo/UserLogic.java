@@ -139,10 +139,10 @@ class UserLogic {
     }
 
     public List<User> listUsersbyName(String name, int startAt, int amountOf) {
-        Query q = manager.createQuery("SELECT u FROM User u WHERE u.name like :name")
+        Query q = manager.createQuery("SELECT u FROM User u WHERE u.name like :name or u.email like :name")
                 .setFirstResult(startAt)
                 .setMaxResults(amountOf);
-        q.setParameter("name",name);
+        q.setParameter("name","%" + name + "%");
         return (List<User>)q.getResultList();
     }
 
