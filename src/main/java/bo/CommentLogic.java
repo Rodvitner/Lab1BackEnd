@@ -20,11 +20,11 @@ public class CommentLogic {
         manager = em;
     }
 
-    // Paketpublik metod f|r att posta en kommentar.
+    // Paketpublik metod f|r att posta en kommentar. Kastar exceptions.
     void postComment(String text, User user, Post post) throws PostException, UserException {
         if (user == null) throw new UserException("Null user.");
         if (text == null || text.length()<1) throw new PostException("Comment body null or empty.");
-        Comment commentToPost=new Comment(text,new Date(),user,post);
+        postComment(new Comment(text,new Date(),user,post));
     }
 
     // Privat metod som postar posten till databasen.

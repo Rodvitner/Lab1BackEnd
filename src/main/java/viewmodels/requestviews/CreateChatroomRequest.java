@@ -5,12 +5,10 @@ package viewmodels.requestviews;
  */
 public class CreateChatroomRequest {
     String ownerEmail, inviteeEmail, roomName;
-    int id;
 
-    public CreateChatroomRequest(String ownerEmail, String inviteeEmail, String roomName, int id) {
+    public CreateChatroomRequest(String ownerEmail, String inviteeEmail, String roomName) {
         this.ownerEmail = ownerEmail;
         this.inviteeEmail = inviteeEmail;
-        this.id = id;
         this.roomName = roomName;
     }
 
@@ -31,14 +29,6 @@ public class CreateChatroomRequest {
 
     public void setInviteeEmail(String inviteeEmail) {
         this.inviteeEmail = inviteeEmail;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getRoomName() {

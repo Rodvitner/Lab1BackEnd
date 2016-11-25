@@ -36,6 +36,10 @@ public class ChatLogic {
         try {
             trans = manager.getTransaction();
             trans.begin();
+            for(User u : newRoom.getMembers()) {
+                System.out.println(u);
+                u.getRooms().add(newRoom);
+            }
             manager.persist(newRoom);
             trans.commit();
         }catch(PersistenceException pe) {
@@ -43,10 +47,6 @@ public class ChatLogic {
             pe.printStackTrace();
         }
         return newRoom.getId();
-    }
-
-    List<Chatroom> listChatroomsByUser(User user) {
-        return manager.find(User.class,user).getRooms();
     }
 
     Chatroom getChatRoomById(int id) {

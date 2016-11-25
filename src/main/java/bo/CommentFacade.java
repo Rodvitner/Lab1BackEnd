@@ -32,6 +32,7 @@ public class CommentFacade {
             poster = new UserLogic(prylchef).findUserByEmail(ccr.getUserEmail());
             post = new PostLogic(prylchef).getPostById(ccr.getPostId());
             new CommentLogic(prylchef).postComment(ccr.getText(), poster, post);
+            res = new Result(true,"Comment posted.");
         } catch (UserException ue) {
             res = new Result(false, ue.getMessage());
         } catch (PostException pe) {
