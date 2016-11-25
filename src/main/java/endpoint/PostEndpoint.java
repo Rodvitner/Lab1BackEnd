@@ -1,6 +1,7 @@
 package endpoint;
 
 import bo.PostFacade;
+import viewmodels.generalviews.PostView;
 import viewmodels.resultviews.WallResult;
 import viewmodels.requestviews.WallRequest;
 import viewmodels.resultviews.CreatePostResult;
@@ -8,6 +9,7 @@ import viewmodels.requestviews.CreatePostRequest;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 /**
  * Created by archer on 2016-11-20.
@@ -19,7 +21,7 @@ public class PostEndpoint {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public CreatePostResult createPost(CreatePostRequest postToCreate){
+    public CreatePostResult createPost(CreatePostRequest postToCreate) {
         return new PostFacade().createPost(postToCreate);
     }
 
@@ -32,5 +34,14 @@ public class PostEndpoint {
     public WallResult getWall(WallRequest wallRequest) {
         return new PostFacade().getWall(wallRequest);
     }
+
+
+    @GET
+    @Path("getbyuser")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<PostView> byUser(@QueryParam("userid") String userid) {
+        return new PostFacade().getPostsByuser(userid);
+    }
+
 
 }
