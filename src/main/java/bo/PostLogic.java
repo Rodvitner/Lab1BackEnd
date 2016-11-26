@@ -72,7 +72,11 @@ class PostLogic {
         Query q = manager.createQuery("SELECT p FROM Post p WHERE p.user in :email OR p.user=:me ORDER BY p.date desc ")
                 .setFirstResult(startAt)
                 .setMaxResults(amountOfPosts);
-        q.setParameter("email",user.getFriends());
+        System.out.println("RESULT OF USER FRIENDLIST: "+user.getFriends()+", LENGTH="+user.getFriends().size());
+        if (user.getFriends().size()<1)
+            q.setParameter("email",user);
+        else
+            q.setParameter("email",user.getFriends());
         q.setParameter("me",user);
 
         ret = (List<Post>)q.getResultList();

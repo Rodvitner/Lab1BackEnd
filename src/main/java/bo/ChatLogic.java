@@ -26,6 +26,7 @@ public class ChatLogic {
     int createChatroom(User creator, User invitee, String roomName) throws UserException {
         if (creator==null) throw new UserException("Creator is null when creating chatroom.");
         if (invitee==null) throw new UserException("Invitee is null when creating chatroom.");
+        if (!creator.getFriends().contains(invitee)) throw new UserException("Users are not friends!");
         List<User> members = new LinkedList<>();
         members.add(creator);
         members.add(invitee);
@@ -58,6 +59,7 @@ public class ChatLogic {
         if (poster==null) throw new UserException("User null when trying to post to chatroom.");
         Chatroom roomToPostIn = getChatRoomById(chatroomId);
         if (roomToPostIn==null) throw new ChatException("Chatroom not found");
+        if (!roomToPostIn.getMembers().contains(poster)) throw new ChatException("User not member of chat!");
         postChatMessage(new ChatMessage(text,new Date(),roomToPostIn,poster));
     }
 

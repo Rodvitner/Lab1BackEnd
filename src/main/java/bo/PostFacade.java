@@ -6,6 +6,7 @@ import exception.UserException;
 import model.Post;
 import model.User;
 import viewmodels.generalviews.PostView;
+import viewmodels.resultviews.GetPostResult;
 import viewmodels.resultviews.WallResult;
 import viewmodels.requestviews.CreatePostRequest;
 import viewmodels.requestviews.WallRequest;
@@ -84,5 +85,15 @@ public class PostFacade {
         }
 
         return list;
+    }
+
+    public GetPostResult getPostById(int postId) {
+        GetPostResult res = null;
+        Post p = new PostLogic(prylchef).getPostById(postId);
+        if (p==null)
+            res = new GetPostResult(false,"Could not find post.",null);
+        else
+            res = new GetPostResult(true,"post found.",new PostPostViewMapper().translateFromA(p));
+        return res;
     }
 }

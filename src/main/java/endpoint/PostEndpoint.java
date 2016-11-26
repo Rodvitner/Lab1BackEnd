@@ -2,6 +2,7 @@ package endpoint;
 
 import bo.PostFacade;
 import viewmodels.generalviews.PostView;
+import viewmodels.resultviews.GetPostResult;
 import viewmodels.resultviews.WallResult;
 import viewmodels.requestviews.WallRequest;
 import viewmodels.resultviews.CreatePostResult;
@@ -24,7 +25,6 @@ public class PostEndpoint {
     public CreatePostResult createPost(CreatePostRequest postToCreate) {
         return new PostFacade().createPost(postToCreate);
     }
-
     // TODO: 23/11/16 ändra till en GET
 
     @POST
@@ -42,6 +42,14 @@ public class PostEndpoint {
     public List<PostView> byUser(@QueryParam("userid") String userid) {
         return new PostFacade().getPostsByuser(userid);
     }
+
+    @GET
+    @Path("get")
+    @Produces(MediaType.APPLICATION_JSON)
+    public GetPostResult getPostById(@QueryParam("id") int postId) {
+        return new PostFacade().getPostById(postId);
+    }
+
 
 
 }
