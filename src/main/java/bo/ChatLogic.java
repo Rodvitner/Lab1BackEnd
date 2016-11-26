@@ -1,5 +1,6 @@
 package bo;
 
+import bo.translators.ChatMessageSorter;
 import exception.ChatException;
 import exception.UserException;
 import model.ChatMessage;
@@ -51,7 +52,12 @@ public class ChatLogic {
     }
 
     Chatroom getChatRoomById(int id) {
-        return manager.find(Chatroom.class,id);
+        System.out.println("TRYING TO FETCH CAHTRMUM");
+        Chatroom unsortedChatroom = manager.find(Chatroom.class,id);
+        System.out.println("BEFORE: "+unsortedChatroom);
+        unsortedChatroom.getMessages().sort(new ChatMessageSorter());
+        System.out.println("AFTER: "+unsortedChatroom);
+        return unsortedChatroom;
     }
 
     // Paketpublik metod f|r att posta till en chatt. Kastar lite exceptions.

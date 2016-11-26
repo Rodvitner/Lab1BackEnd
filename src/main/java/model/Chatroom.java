@@ -59,4 +59,13 @@ public class Chatroom {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Chatroom{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                ", messages=" + messages +
+                '}';
+    }
 }

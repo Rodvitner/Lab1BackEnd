@@ -71,4 +71,14 @@ public class ChatMessage {
     public void setPoster(User poster) {
         this.poster = poster;
     }
+
+    @Override
+    public String toString() {
+        return "ChatMessage{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", date=" + date +
+                ", poster=" + poster +
+                '}';
+    }
 }
