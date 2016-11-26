@@ -24,7 +24,8 @@ public class CommentLogic {
     void postComment(String text, User user, Post post) throws PostException, UserException {
         if (user == null) throw new UserException("Null user.");
         if (text == null || text.length()<1) throw new PostException("Comment body null or empty.");
-        postComment(new Comment(text,new Date(),user,post));
+        Comment commentToPost=new Comment(text,new Date(),user,post);
+        postComment(commentToPost);
     }
 
     // Privat metod som postar posten till databasen.

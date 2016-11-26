@@ -5,12 +5,14 @@ import exception.PostException;
 import exception.UserException;
 import model.Post;
 import model.User;
+import viewmodels.generalviews.PostView;
 import viewmodels.resultviews.WallResult;
 import viewmodels.requestviews.CreatePostRequest;
 import viewmodels.requestviews.WallRequest;
 import viewmodels.resultviews.CreatePostResult;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -60,7 +62,7 @@ public class PostFacade {
             ue.printStackTrace();
         } catch (PostException pe) {
             res = new WallResult(false, pe.getMessage(), null);
-        }finally{
+        } finally {
             prylchef.close();
         }
         return res;
@@ -68,5 +70,19 @@ public class PostFacade {
 
     private void abort() {
         // TODO: 22/11/16  abort transaction in some fancy way.
+    }
+
+    public List<PostView> getPostsByuser(String userid) {
+        List<PostView> list = new ArrayList<>();
+        try {
+            User u = new UserLogic(prylchef).findUserByEmail(userid);
+            list = new PostPostViewMapper().translateListOfA(u.getPosts());
+
+        } catch (UserException e) {
+            e.printStackTrace();
+
+        }
+
+        return list;
     }
 }

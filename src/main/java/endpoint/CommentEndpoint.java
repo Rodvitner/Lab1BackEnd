@@ -1,7 +1,6 @@
 package endpoint;
 
 import bo.CommentFacade;
-import com.sun.xml.internal.rngom.ast.builder.CommentList;
 import model.Comment;
 import viewmodels.generalviews.CommentView;
 import viewmodels.requestviews.CreateCommentRequest;
