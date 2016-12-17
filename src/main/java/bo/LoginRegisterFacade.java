@@ -1,6 +1,7 @@
 package bo;
 
 import exception.UserException;
+import viewmodels.requestviews.AuthRequest;
 import viewmodels.requestviews.LoginRequest;
 import viewmodels.requestviews.CreateUserRequest;
 import viewmodels.resultviews.CreateUserResult;
@@ -78,5 +79,17 @@ public class LoginRegisterFacade {
 
     private void abort() {
         // TODO: 2016-11-20 abort transaction in some smart way
+    }
+
+    public Result authenticate(AuthRequest auth) {
+        Result res;
+        try{
+            boolean success =  new UserLogic(prylchef).authenticate(auth.getUsername(), auth.getToken());
+            res = new Result(true, "authenticated");
+        }catch (UserException e){
+            res = new Result(false, "Could not authenticate");
+        }
+        return res;
+
     }
 }

@@ -182,4 +182,18 @@ class UserLogic {
             throw pe;
         }
     }
+
+    public boolean authenticate(String username, String token) throws UserException {
+
+            User u = findUserByEmail(username);
+            if(u == null){
+                throw new UserException("no such user");
+            }
+            if( u.getUuid()!=null && u.getUuid().equals(token)){
+                return true;
+            }
+            throw new UserException("TOKEN MISSMATCH");
+
+
+    }
 }
