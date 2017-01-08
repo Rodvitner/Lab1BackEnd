@@ -1,12 +1,14 @@
 package com.viewmodels.resultviews;
 
+import com.google.appengine.api.datastore.Key;
+
 /**
  * Created by simonlundstrom on 24/11/16.
  */
 public class CreateChatRoomResult extends Result {
-    int id;
+    Key id;
 
-    public CreateChatRoomResult(boolean success, String message, int id) {
+    public CreateChatRoomResult(boolean success, String message, Key id) {
         super(success, message);
         this.id = id;
     }
@@ -14,12 +16,12 @@ public class CreateChatRoomResult extends Result {
     public CreateChatRoomResult() {
     }
 
-    public int getId() {
+    public Key getId() {
 
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Key id) {
         this.id = id;
     }
 }

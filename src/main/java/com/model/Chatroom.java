@@ -1,5 +1,8 @@
 package com.model;
 
+import com.google.appengine.api.datastore.Key;
+
+import javax.jdo.annotations.Persistent;
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,19 +12,19 @@ import java.util.List;
 @Entity
 public class Chatroom {
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Key id;
 
     @OneToMany(mappedBy = "room")
     private List<ChatMessage> messages;
 
-    @ManyToMany(mappedBy = "rooms")
-    private List<User> members;
+    @Persistent
+    private List<Key> memberIds;
 
     private String name;
 
-    public Chatroom(List<User> members, String roomName) {
-        this.members = members;
+    public Chatroom(List<Key> memberIds, String roomName) {
+        this.memberIds = memberIds;
         this.name = roomName;
     }
 
@@ -32,19 +35,19 @@ public class Chatroom {
         return messages;
     }
 
-    public List<User> getMembers() {
-        return members;
+    public List<Key> getMemberIds() {
+        return memberIds;
     }
 
     public void setMessages(List<ChatMessage> messages) {
         this.messages = messages;
     }
 
-    public void setMembers(List<User> members) {
-        this.members = members;
+    public void setMemberIds(List<Key> members) {
+        this.memberIds = members;
     }
 
-    public int getId() {
+    public Key getId() {
         return id;
     }
 
@@ -56,7 +59,7 @@ public class Chatroom {
         this.name = name;
     }
 
-    public void setId(int id) {
+    public void setId( Key id) {
         this.id = id;
     }
 

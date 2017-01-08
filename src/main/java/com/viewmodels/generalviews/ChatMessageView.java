@@ -1,5 +1,7 @@
 package com.viewmodels.generalviews;
 
+import com.google.appengine.api.datastore.Key;
+
 import java.util.Date;
 
 /**
@@ -8,12 +10,12 @@ import java.util.Date;
 public class ChatMessageView {
     String text,posterId;
     Date date;
-    int roomId, chatMessageId;
+    Key roomId, chatMessageId;
 
     public ChatMessageView() {
     }
 
-    public ChatMessageView(String text, String posterId, Date date, int roomId, int chatMessageId) {
+    public ChatMessageView(String text, String posterId, Date date, Key roomId, Key chatMessageId) {
         this.text = text;
         this.posterId = posterId;
         this.date = date;
@@ -45,19 +47,19 @@ public class ChatMessageView {
         this.date = date;
     }
 
-    public int getRoomId() {
+    public Key getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(int roomId) {
+    public void setRoomId(Key roomId) {
         this.roomId = roomId;
     }
 
-    public int getChatMessageId() {
+    public Key getChatMessageId() {
         return chatMessageId;
     }
 
-    public void setChatMessageId(int chatMessageId) {
+    public void setChatMessageId(Key chatMessageId) {
         this.chatMessageId = chatMessageId;
     }
 }

@@ -3,6 +3,7 @@ package com.bo;
 import com.bo.translators.PostPostViewMapper;
 import com.exception.PostException;
 import com.exception.UserException;
+import com.google.appengine.api.datastore.Key;
 import com.model.Post;
 import com.model.User;
 import com.viewmodels.generalviews.PostView;
@@ -34,13 +35,12 @@ public class PostFacade {
 
         try {
             userThatPosted = new UserLogic(prylchef).findUserByEmail(postToCreate.getUserEmail());
-            int id = new PostLogic(prylchef).post(postToCreate.getPostText(), userThatPosted, new Date());
+            Key id = new PostLogic(prylchef).post(postToCreate.getPostText(), userThatPosted, new Date());
             res = new CreatePostResult(true, "Success!", id);
         } catch (UserException ue) {
-            res = new CreatePostResult(false, ue.getMessage(), -1);
+            res = new CreatePostResult(false, ue.getMessage(), null);
         } catch (PostException pe) {
-            res = new CreatePostResult(false, pe.getMessage(), -1);
-            res.setId(-1);
+            res = new CreatePostResult(false, pe.getMessage(), null);
         } finally {
             prylchef.close();
         }

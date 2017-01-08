@@ -1,16 +1,18 @@
 package com.viewmodels.generalviews;
 
+import com.google.appengine.api.datastore.Key;
+
 /**
  * Created by simonlundstrom on 16/11/16.
  */
 public class CommentView {
     private String text, tid, userId;
-    private int id,postId;
+    private Key id,postId;
 
     public CommentView() {
     }
 
-    public CommentView(String text, String tid, int id, int postId, String userId) {
+    public CommentView(String text, String tid, Key id, Key postId, String userId) {
         this.text = text;
         this.tid = tid;
         this.id = id;
@@ -34,19 +36,19 @@ public class CommentView {
         this.tid = tid;
     }
 
-    public int getId() {
+    public Key getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Key id) {
         this.id = id;
     }
 
-    public int getPostId() {
+    public Key getPostId() {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(Key postId) {
         this.postId = postId;
     }
 

@@ -1,9 +1,8 @@
 package com.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import com.google.appengine.api.datastore.Key;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -17,8 +16,8 @@ public class Comment {
     @ManyToOne
     private Post post;
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Key id;
 
     public Comment() {
     }
@@ -46,11 +45,11 @@ public class Comment {
         this.date = date;
     }
 
-    public int getId() {
+    public Key getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Key id) {
         this.id = id;
     }
 

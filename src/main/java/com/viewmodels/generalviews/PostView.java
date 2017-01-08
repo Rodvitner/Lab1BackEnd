@@ -1,16 +1,18 @@
 package com.viewmodels.generalviews;
 
+import com.google.appengine.api.datastore.Key;
+
 /**
  * Created by simonlundstrom on 16/11/16.
  */
 public class PostView {
     String text, date, userId;
-    int postId;
+    Key postId;
 
     public PostView() {
     }
 
-    public PostView(String text, String date, String userId, int postId) {
+    public PostView(String text, String date, String userId, Key postId) {
         this.text = text;
         this.date = date;
         this.userId = userId;
@@ -41,11 +43,11 @@ public class PostView {
         this.userId = userId;
     }
 
-    public int getPostId() {
+    public Key getPostId() {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(Key postId) {
         this.postId = postId;
     }
 }

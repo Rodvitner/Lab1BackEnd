@@ -1,21 +1,23 @@
 package com.viewmodels.resultviews;
 
+import com.google.appengine.api.datastore.Key;
+
 /**
  * Created by archer on 2016-11-20.
  */
 public class CreatePostResult extends Result {
 
-    private int id;
+    private Key id;
 
-    public int getId() {
+    public Key getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Key id) {
         this.id = id;
     }
 
-    public CreatePostResult(boolean success, String message, int id) {
+    public CreatePostResult(boolean success, String message, Key id) {
         super(success, message);
         this.id = id;
     }

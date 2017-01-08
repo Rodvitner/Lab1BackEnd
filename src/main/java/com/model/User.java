@@ -2,6 +2,7 @@ package com.model;
 
 import com.google.appengine.api.datastore.Key;
 
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 import javax.persistence.*;
 import java.util.List;
@@ -14,10 +15,9 @@ public class User {
     private String name;
 
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Key id;
 
-    @Unique
     private String email;
 
     private String password;
@@ -30,18 +30,19 @@ public class User {
 
 
     //have a user able to be friends with other users
-    @ManyToMany
-    @JoinTable(joinColumns =  @JoinColumn(name="user1"),
-                inverseJoinColumns = @JoinColumn(name ="user2"),
-                uniqueConstraints =  @UniqueConstraint(columnNames = {"user1","user2"}))
-    private List<User> friends;
+    @Persistent
+    private List<Key> friendsIds;
+    //private List<User> friends;
+    @Persistent
+    private List<Key> roomIds;
 
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name="member"),
-            inverseJoinColumns = @JoinColumn(name="chatroom"),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"chatroom","member"}))
-    private List<Chatroom> rooms;
+    public Key getId() {
+        return id;
+    }
 
+    public void setId(Key id) {
+        this.id = id;
+    }
 
     public String getUuid() {
         return uuid;
@@ -61,12 +62,12 @@ public class User {
 
 
 
-    public List<User> getFriends() {
-        return friends;
+    public List<Key> getFriendsIds() {
+        return friendsIds;
     }
 
-    public void setFriends(List<User> friends) {
-        this.friends = friends;
+    public void setFriendsIds(List<Key> friends) {
+        this.friendsIds = friends;
     }
 
     public String getName() {
@@ -94,12 +95,12 @@ public class User {
     }
 
 
-    public List<Chatroom> getRooms() {
-        return rooms;
+    public List<Key> getRoomIds() {
+        return roomIds;
     }
 
-    public void setRooms(List<Chatroom> rooms) {
-        this.rooms = rooms;
+    public void setRoomIds(List<Key> rooms) {
+        this.roomIds = rooms;
     }
 
     public User() {

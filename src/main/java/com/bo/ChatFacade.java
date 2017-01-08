@@ -32,7 +32,7 @@ public class ChatFacade {
             User invitee = new UserLogic(prylchef).findUserByEmail(request.getInviteeEmail());
             res = new CreateChatRoomResult(true,"OK",new ChatLogic(prylchef).createChatroom(creator,invitee,request.getRoomName()));
         }catch(UserException ue) {
-            res = new CreateChatRoomResult(false,ue.getMessage(),-1);
+            res = new CreateChatRoomResult(false,ue.getMessage(),null);
         }finally{
             prylchef.close();
         }
@@ -43,7 +43,7 @@ public class ChatFacade {
         ListChatRoomsResult res = null;
         try {
             User user = new UserLogic(prylchef).findUserByEmail(userId);
-            List<Chatroom> chatrooms = user.getRooms();
+            List<Chatroom> chatrooms = new ChatLogic(prylchef).getRoomsByUser(user);
             res = new ListChatRoomsResult(true,"OK",new ChatroomMetaDataMapper().translateListOfA(chatrooms));
         }catch(UserException ue) {
             res = new ListChatRoomsResult(false, ue.getMessage(),null);
@@ -53,7 +53,7 @@ public class ChatFacade {
         return res;
     }
 
-    public GetChatroomResult getChatroomById(int id){
+    public GetChatroomResult getChatroomById(long id){
         GetChatroomResult res = null;
         try {
             Chatroom room = new ChatLogic(prylchef).getChatRoomById(id);
@@ -80,7 +80,7 @@ public class ChatFacade {
         return res;
     }
 
-    public Result addUserToChatroom(int chatroomId, String userId) {
+    public Result addUserToChatroom(long chatroomId, String userId) {
         Result res=null;
         try {
             User userToAdd = new UserLogic(prylchef).findUserByEmail(userId);

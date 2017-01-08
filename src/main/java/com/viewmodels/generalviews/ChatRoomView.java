@@ -7,11 +7,11 @@ import java.util.List;
  */
 public class ChatRoomView {
     private String name;
-    private int id;
+    private long id;
     private List<UserView> members;
     private List<ChatMessageView> messages;
 
-    public ChatRoomView(String name, int id, List<UserView> members, List<ChatMessageView> messages) {
+    public ChatRoomView(String name, long id, List<UserView> members, List<ChatMessageView> messages) {
         this.name = name;
         this.id = id;
         this.members = members;
@@ -29,11 +29,11 @@ public class ChatRoomView {
         this.name = name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -37,13 +37,14 @@ public class FriendFacade {
         FriendListResult res;
         User asker;
         try {
-            asker = new UserLogic(prylchef).findUserByEmail(id);
+            UserLogic ul = new UserLogic(prylchef);
+            asker = ul.findUserByEmail(id);
             System.out.println("FriendFacade tried to find user on id="+id);
             if (asker==null)
                 res = new FriendListResult(false,"FriendFacade: No such user.",null);
             else
                 res = new FriendListResult(true,"OK", new UserUserViewMapper()
-                    .translateListOfA(asker.getFriends()));
+                    .translateListOfA(ul.getFriends(asker)));
         }catch(UserException ue){
             res = new FriendListResult(false,ue.getMessage(),null);
         }finally{

@@ -1,5 +1,7 @@
 package com.model;
 
+import com.google.appengine.api.datastore.Key;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -17,8 +19,8 @@ public class Post {
     private User user;
 
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Key id;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
@@ -48,11 +50,11 @@ public class Post {
         this.date = date;
     }
 
-    public int getId() {
+    public Key getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Key id) {
         this.id = id;
     }
 

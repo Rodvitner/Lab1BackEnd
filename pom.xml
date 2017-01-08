@@ -125,6 +125,10 @@
                 <groupId>com.google.appengine</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>1.9.48</version>
+                <configuration>
+                    <port>8081</port>
+                    <address>0.0.0.0</address>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.datanucleus</groupId>

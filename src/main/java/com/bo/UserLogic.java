@@ -4,10 +4,7 @@ import com.exception.UserException;
 import com.model.User;
 
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,13 +23,24 @@ class UserLogic {
     }
 
     // Paketgenerisk metod f|r att hitta en anv{ndare i databasen (efter epostadress).
-    User findUserByEmail(String email) throws UserException{
-        if (email==null) throw new NullPointerException("User email is null.");
-        System.out.println("User logic trying to find user: "+email);
-        Query q = manager.createQuery("select u from User u where u.email = :email " , User.class);
+    User findUserByEmail(String email) throws UserException {
+        if (email == null) throw new NullPointerException("User email is null.");
+        System.out.println("User logic trying to find user: " + email);
+        Query q = manager.createQuery("select u from User u where u.email = :email ", User.class);
+        User res;
+        try{
 
-        User res = (User) q.setParameter("email",email).getSingleResult();
-        System.out.println("User logic found "+res);
+            List<User> users = (List<User>) q.setParameter("email", email).getResultList();
+            if(users.size() == 0){
+                res =null;
+            }else{
+                res=users.get(0);
+            }
+
+        }catch (NoResultException e){
+            res = null;
+        }
+        System.out.println("User logic found " + res);
         return res;
     }
 
@@ -79,7 +87,7 @@ class UserLogic {
 
         //check if already friends
         for (User u :
-                user1.getFriends()) {
+                getFriends(user1)) {
             if (u.getEmail().equals(user2Email)) {
                 throw new UserException("users are already friends");
             }
@@ -101,8 +109,8 @@ class UserLogic {
         try {
             trans = manager.getTransaction();
             trans.begin();
-            user1.getFriends().add(user2);
-            user2.getFriends().add(user1);
+            user1.getFriendsIds().add(user2.getId());
+            user2.getFriendsIds().add(user1.getId());
             manager.persist(user1);
             manager.persist(user2);
             trans.commit();
@@ -111,6 +119,15 @@ class UserLogic {
             ex.printStackTrace();
             throw ex;
         }
+    }
+
+    public List<User> getFriends(User asker) {
+        Query q = manager.createQuery("select u from User u where u.id in :ids", User.class);
+        q.setParameter("ids", asker.getFriendsIds());
+        List<User> res = q.getResultList();
+        System.out.println("FOUDN THIS LIST OF FRIENDS: " +res ) ;
+        return res;
+
     }
 
     // Paketpublik wrapper-metod f|r att registrera en anv{ndare.
@@ -144,42 +161,42 @@ class UserLogic {
         Query q = manager.createQuery("SELECT u FROM User u WHERE u.name like :name or u.email like :name")
                 .setFirstResult(startAt)
                 .setMaxResults(amountOf);
-        q.setParameter("name","%"+name+"%");
-        return (List<User>)q.getResultList();
+        q.setParameter("name", "%" + name + "%");
+        return (List<User>) q.getResultList();
     }
 
-    public void logoutUser(String userToLogout) throws UserException{
+    public void logoutUser(String userToLogout) throws UserException {
         EntityTransaction trans = null;
         try {
             trans = manager.getTransaction();
             User u = findUserByEmail(userToLogout);
-            if (u==null) throw new UserException("User not found.");
+            if (u == null) throw new UserException("User not found.");
             trans.begin();
             u.setUuid(null);
             manager.persist(u);
             trans.commit();
-        }catch (PersistenceException pe) {
-            if (trans!=null) trans.rollback();
+        } catch (PersistenceException pe) {
+            if (trans != null) trans.rollback();
             pe.printStackTrace();
         }
     }
 
-    public void removeRelation(String angryGuy, String theEnemy) throws UserException{
+    public void removeRelation(String angryGuy, String theEnemy) throws UserException {
         User angry = findUserByEmail(angryGuy);
         User enemy = findUserByEmail(theEnemy);
-        if (angry==null) throw new UserException("User "+angryGuy+" not found.");
-        if (enemy==null) throw new UserException("User "+theEnemy+" not found.");
+        if (angry == null) throw new UserException("User " + angryGuy + " not found.");
+        if (enemy == null) throw new UserException("User " + theEnemy + " not found.");
         EntityTransaction trans = null;
         try {
             trans = manager.getTransaction();
             trans.begin();
-            angry.getFriends().remove(enemy);
-            enemy.getFriends().remove(angry);
+            angry.getFriendsIds().remove(enemy.getId());
+            enemy.getFriendsIds().remove(angry.getId());
             manager.persist(angry);
             manager.persist(enemy);
             trans.commit();
-        }catch(PersistenceException pe) {
-            if (trans!=null) trans.rollback();
+        } catch (PersistenceException pe) {
+            if (trans != null) trans.rollback();
             pe.printStackTrace();
             throw pe;
         }
