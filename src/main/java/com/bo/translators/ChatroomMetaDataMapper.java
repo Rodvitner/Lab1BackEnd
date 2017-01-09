@@ -1,5 +1,6 @@
 package com.bo.translators;
 
+import com.google.appengine.api.datastore.KeyFactory;
 import com.model.Chatroom;
 import com.viewmodels.generalviews.ChatroomMetaData;
 
@@ -9,7 +10,7 @@ import com.viewmodels.generalviews.ChatroomMetaData;
 public class ChatroomMetaDataMapper extends Translator<Chatroom,ChatroomMetaData>{
     @Override
     public ChatroomMetaData translateFromA(Chatroom chatroom) {
-        return new ChatroomMetaData(chatroom.getId(),chatroom.getName());
+        return new ChatroomMetaData(KeyFactory.keyToString(chatroom.getId()),chatroom.getName());
     }
 
     @Override

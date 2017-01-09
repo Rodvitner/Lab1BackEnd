@@ -1,15 +1,14 @@
 package com.viewmodels.generalviews;
 
-import com.google.appengine.api.datastore.Key;
 
 /**
  * Created by simonlundstrom on 24/11/16.
  */
 public class ChatroomMetaData {
-    private Key roomId;
+    private String roomId;
     private String roomName;
 
-    public ChatroomMetaData(Key roomId, String roomName) {
+    public ChatroomMetaData(String roomId, String roomName) {
         this.roomId = roomId;
         this.roomName = roomName;
     }
@@ -17,11 +16,11 @@ public class ChatroomMetaData {
     public ChatroomMetaData() {
     }
 
-    public Key getRoomId() {
+    public String getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(Key roomId) {
+    public void setRoomId(String roomId) {
         this.roomId = roomId;
     }
 

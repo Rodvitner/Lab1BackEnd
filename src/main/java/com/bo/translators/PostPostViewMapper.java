@@ -1,5 +1,6 @@
 package com.bo.translators;
 
+import com.google.appengine.api.datastore.KeyFactory;
 import com.model.Post;
 import com.viewmodels.generalviews.PostView;
 
@@ -9,7 +10,7 @@ import com.viewmodels.generalviews.PostView;
 public class PostPostViewMapper extends Translator<Post,PostView>{
     @Override
     public PostView translateFromA(Post post) {
-        return new PostView(post.getText(),post.getDate().toString(),post.getUser().getEmail(),post.getId());
+        return new PostView(post.getText(),post.getDate().toString(),post.getUser().getEmail(), KeyFactory.keyToString(post.getId()));
     }
 
     @Override
