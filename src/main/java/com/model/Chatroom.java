@@ -4,6 +4,7 @@ import com.google.appengine.api.datastore.Key;
 
 import javax.jdo.annotations.Persistent;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,8 @@ public class Chatroom {
 
     @Persistent
     private List<Key> memberIds;
+    @Transient
+    private List<User> members;
 
     private String name;
 
@@ -29,6 +32,14 @@ public class Chatroom {
     }
 
     public Chatroom() {
+    }
+
+    public List<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
     }
 
     public List<ChatMessage> getMessages() {

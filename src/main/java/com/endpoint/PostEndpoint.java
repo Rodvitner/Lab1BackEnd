@@ -46,7 +46,7 @@ public class PostEndpoint {
     @GET
     @Path("get")
     @Produces(MediaType.APPLICATION_JSON)
-    public GetPostResult getPostById(@QueryParam("id") int postId) {
+    public GetPostResult getPostById(@QueryParam("id") String postId) {
         return new PostFacade().getPostById(postId);
     }
 

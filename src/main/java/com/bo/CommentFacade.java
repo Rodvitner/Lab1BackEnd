@@ -3,6 +3,7 @@ package com.bo;
 import com.bo.translators.CommentCommentViewMapper;
 import com.exception.PostException;
 import com.exception.UserException;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.model.Comment;
 import com.model.Post;
 import com.model.User;
@@ -29,7 +30,7 @@ public class CommentFacade {
         Post post = null;
         try {
             poster = new UserLogic(prylchef).findUserByEmail(ccr.getUserEmail());
-            post = new PostLogic(prylchef).getPostById(ccr.getPostId());
+            post = new PostLogic(prylchef).getPostById(KeyFactory.stringToKey(ccr.getPostId()));
             System.out.println("GOT POST " + post + " WITH ID NR " + ccr.getPostId());
             new CommentLogic(prylchef).postComment(ccr.getText(), poster, post);
             res = new Result(true,"success");
@@ -44,9 +45,9 @@ public class CommentFacade {
         return res;
     }
 
-    public CommentListResult getCommentsByPostId(int id) {
+    public CommentListResult getCommentsByPostId(String id) {
         CommentListResult res = null;
-        List<Comment> lista = new CommentLogic(prylchef).getCommentsByPostId(id);
+        List<Comment> lista = new CommentLogic(prylchef).getCommentsByPostId(KeyFactory.stringToKey(id));
         System.out.println("LISTA AV KLOMMENTARER ÄR " + lista);
         if (lista==null || lista.size() <= 0 )
             res = new CommentListResult(false,"No Comments.",null);

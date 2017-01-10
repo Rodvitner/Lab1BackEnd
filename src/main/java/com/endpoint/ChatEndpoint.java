@@ -42,14 +42,14 @@ public class ChatEndpoint {
     @PUT
     @Path("adduser")
     @Produces(MediaType.APPLICATION_JSON)
-    public Result addUserToChatroom(@QueryParam("roomId") int roomId, @QueryParam("userId") String userId) {
+    public Result addUserToChatroom(@QueryParam("roomId") String roomId, @QueryParam("userId") String userId) {
         return new ChatFacade().addUserToChatroom(roomId,userId);
     }
 
     @GET
     @Path("get")
     @Produces(MediaType.APPLICATION_JSON)
-    public GetChatroomResult getChatRoomById(@QueryParam("roomId") int roomId) {
+    public GetChatroomResult getChatRoomById(@QueryParam("roomId") String roomId) {
         return new ChatFacade().getChatroomById(roomId);
     }
 }

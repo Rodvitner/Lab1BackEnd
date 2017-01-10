@@ -61,4 +61,15 @@ public class ChatMessageView {
     public void setChatMessageId(String chatMessageId) {
         this.chatMessageId = chatMessageId;
     }
+
+    @Override
+    public String toString() {
+        return "ChatMessageView{" +
+                "text='" + text + '\'' +
+                ", posterId='" + posterId + '\'' +
+                ", date=" + date +
+                ", roomId='" + roomId + '\'' +
+                ", chatMessageId='" + chatMessageId + '\'' +
+                '}';
+    }
 }

@@ -4,6 +4,7 @@ import com.bo.translators.PostPostViewMapper;
 import com.exception.PostException;
 import com.exception.UserException;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.model.Post;
 import com.model.User;
 import com.viewmodels.generalviews.PostView;
@@ -36,7 +37,7 @@ public class PostFacade {
         try {
             userThatPosted = new UserLogic(prylchef).findUserByEmail(postToCreate.getUserEmail());
             Key id = new PostLogic(prylchef).post(postToCreate.getPostText(), userThatPosted, new Date());
-            res = new CreatePostResult(true, "Success!", id);
+            res = new CreatePostResult(true, "Success!", KeyFactory.keyToString(id));
         } catch (UserException ue) {
             res = new CreatePostResult(false, ue.getMessage(), null);
         } catch (PostException pe) {
@@ -87,9 +88,9 @@ public class PostFacade {
         return list;
     }
 
-    public GetPostResult getPostById(int postId) {
+    public GetPostResult getPostById(String postId) {
         GetPostResult res = null;
-        Post p = new PostLogic(prylchef).getPostById(postId);
+        Post p = new PostLogic(prylchef).getPostById(KeyFactory.stringToKey(postId));
         if (p==null)
             res = new GetPostResult(false,"Could not find post.",null);
         else

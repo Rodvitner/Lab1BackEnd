@@ -1,10 +1,12 @@
 package com.model;
 
 import com.google.appengine.api.datastore.Key;
+import com.viewmodels.requestviews.WallRequest;
 
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -110,5 +112,21 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.friendsIds = new ArrayList<>();
+        this.roomIds = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", uuid='" + uuid + '\'' +
+                ", posts=" + posts +
+                ", friendsIds=" + friendsIds +
+                ", roomIds=" + roomIds +
+                '}';
     }
 }

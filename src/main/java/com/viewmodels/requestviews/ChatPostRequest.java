@@ -5,12 +5,12 @@ package com.viewmodels.requestviews;
  */
 public class ChatPostRequest {
     String posterId,text;
-    int chatroomId;
+    String chatroomId;
 
     public ChatPostRequest() {
     }
 
-    public ChatPostRequest(String posterId, String text, int chatroomId) {
+    public ChatPostRequest(String posterId, String text, String chatroomId) {
         this.posterId = posterId;
         this.text = text;
         this.chatroomId = chatroomId;
@@ -32,11 +32,11 @@ public class ChatPostRequest {
         this.text = text;
     }
 
-    public int getChatroomId() {
+    public String getChatroomId() {
         return chatroomId;
     }
 
-    public void setChatroomId(int chatroomId) {
+    public void setChatroomId(String chatroomId) {
         this.chatroomId = chatroomId;
     }
 }

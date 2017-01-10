@@ -5,12 +5,12 @@ package com.viewmodels.requestviews;
  */
 public class CreateCommentRequest {
     String text,userEmail;
-    int postId;
+    String postId;
 
     public CreateCommentRequest() {
     }
 
-    public CreateCommentRequest(String text, String userEmail, int postId) {
+    public CreateCommentRequest(String text, String userEmail, String postId) {
         this.text = text;
         this.userEmail = userEmail;
         this.postId = postId;
@@ -32,11 +32,11 @@ public class CreateCommentRequest {
         this.userEmail = userEmail;
     }
 
-    public int getPostId() {
+    public String getPostId() {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(String postId) {
         this.postId = postId;
     }
 }

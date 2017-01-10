@@ -1,10 +1,12 @@
 package com.bo;
 
 import com.exception.UserException;
+import com.google.appengine.api.datastore.Key;
 import com.model.User;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -122,11 +124,17 @@ class UserLogic {
     }
 
     public List<User> getFriends(User asker) {
-        Query q = manager.createQuery("select u from User u where u.id in :ids", User.class);
-        q.setParameter("ids", asker.getFriendsIds());
-        List<User> res = q.getResultList();
+        List<User> res = new ArrayList<>();
+        System.out.println("ASKER NULL" + (asker == null) + "ASKER friendids NULL" + (asker.getFriendsIds() == null) );
+
+        for(Key k : asker.getFriendsIds()){
+
+            Query q = manager.createQuery("select u from User u where u.id = :id", User.class);
+            q.setParameter("id",k);
+           res.add((User)q.getSingleResult());
+        }
         System.out.println("FOUDN THIS LIST OF FRIENDS: " +res ) ;
-        return res;
+       return res;
 
     }
 
@@ -158,10 +166,11 @@ class UserLogic {
     }
 
     public List<User> listUsersbyName(String name, int startAt, int amountOf) {
-        Query q = manager.createQuery("SELECT u FROM User u WHERE u.name like :name or u.email like :name")
+        Query q = manager.createQuery("SELECT u FROM User u WHERE u.email like :name")
                 .setFirstResult(startAt)
                 .setMaxResults(amountOf);
-        q.setParameter("name", "%" + name + "%");
+        System.out.println("TRYEING TO FIND USRESR WITH NAME LIKE " + name );
+        q.setParameter("name",  name + "%");
         return (List<User>) q.getResultList();
     }
 

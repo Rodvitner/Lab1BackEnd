@@ -4,15 +4,14 @@ import com.bo.translators.ChatMessageSorter;
 import com.exception.ChatException;
 import com.exception.UserException;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.model.ChatMessage;
 import com.model.Chatroom;
 import com.model.User;
 import com.viewmodels.resultviews.GetChatroomResult;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class ChatLogic {
     Key createChatroom(User creator, User invitee, String roomName) throws UserException {
         if (creator == null) throw new UserException("Creator is null when creating chatroom.");
         if (invitee == null) throw new UserException("Invitee is null when creating chatroom.");
-        if (!creator.getFriendsIds().contains(invitee)) throw new UserException("Users are not friends!");
+        if (!creator.getFriendsIds().contains(invitee.getId())) throw new UserException("Users are not friends!");
         List<Key> members = new LinkedList<>();
         members.add(creator.getId());
         members.add(invitee.getId());
@@ -60,31 +59,56 @@ public class ChatLogic {
         //TODO FIX THIS SHIT
         //Query q = manager.createQuery("select r from Chatroom r where :id in (select member.members from C r.members )");
         //q.setParameter(u.getId())
-        return null;
+        List<Chatroom> chats = new ArrayList<>();
+        for (Key k : u.getRoomIds()) {
+            Query q = manager.createQuery("select r from Chatroom r where r.id = :id");
+            q.setParameter("id", k);
+            try {
+                chats.add((Chatroom) q.getSingleResult());
+            } catch (NoResultException ex) {
+                System.out.println("FOUND NO CHATROOM WITH KEY " + KeyFactory.keyToString(k));
+            }
+
+        }
+        return chats;
     }
 
-    public List<User> getUsersInroom(Chatroom room)
-    {
-        //TODO THIS TO !
-        return null;
+    public List<User> getUsersInroom(Chatroom room) {
+
+        List<User> users = new ArrayList<>();
+        for (Key k : room.getMemberIds()) {
+            Query q = manager.createQuery("select u from User u where u.id = :id");
+            q.setParameter("id", k);
+            try {
+                users.add((User) q.getSingleResult());
+            } catch (NoResultException ex) {
+                System.out.println("FOUND NO USER WITH KEY " + KeyFactory.keyToString(k));
+            }
+
+        }
+        System.out.println("FOUDN THESE USERS IN RTOOM " + users);
+        return users;
     }
 
-
-    Chatroom getChatRoomById(long id) {
+    Chatroom getChatRoomById(Key id) {
         System.out.println("TRYING TO FETCH CAHTRMUM");
         Chatroom unsortedChatroom = manager.find(Chatroom.class, id);
         System.out.println("BEFORE: " + unsortedChatroom);
         unsortedChatroom.getMessages().sort(new ChatMessageSorter());
         System.out.println("AFTER: " + unsortedChatroom);
+        System.out.println("GETTING MEMBERS IN CHAT");
+        unsortedChatroom.setMembers(getUsersInroom(unsortedChatroom));
+
         return unsortedChatroom;
     }
 
     // Paketpublik metod f|r att posta till en chatt. Kastar lite exceptions.
-    void postChatMessage(long chatroomId, User poster, String text) throws ChatException, UserException {
+
+    void postChatMessage(Key chatroomId, User poster, String text) throws ChatException, UserException {
         if (poster == null) throw new UserException("User null when trying to post to chatroom.");
         Chatroom roomToPostIn = getChatRoomById(chatroomId);
         if (roomToPostIn == null) throw new ChatException("Chatroom not found");
-        if (!roomToPostIn.getMemberIds().contains(poster)) throw new ChatException("User not member of chat!");
+        if (!roomToPostIn.getMemberIds().contains(poster.getId())) throw new ChatException("User not member of chat!");
         postChatMessage(new ChatMessage(text, new Date(), roomToPostIn, poster.getEmail()));
     }
 
@@ -97,12 +121,12 @@ public class ChatLogic {
             manager.persist(message);
             trans.commit();
         } catch (PersistenceException pe) {
-            if (trans != null) trans.rollback();
             pe.printStackTrace();
+            if (trans != null) trans.rollback();
         }
     }
 
-    void addUserToChatroom(long chatRoomId, User userToAdd) throws UserException, ChatException {
+    void addUserToChatroom(Key chatRoomId, User userToAdd) throws UserException, ChatException {
         if (userToAdd == null) throw new UserException("User null when adding to chatroom.");
         Chatroom room = getChatRoomById(chatRoomId);
         if (room == null) throw new ChatException("Chatroom not found when adding user to chatroom.");
