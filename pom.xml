@@ -22,19 +22,19 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
-
+<!--
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>6.0.5</version>
         </dependency>
-
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>5.2.4.Final</version>
         </dependency>
 
+-->
         <dependency>
             <groupId>jboss.web</groupId>
             <artifactId>servlet-api</artifactId>
@@ -116,8 +116,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.6.0</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
 
